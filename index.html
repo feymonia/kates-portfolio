@@ -1,0 +1,1330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kate Babenko — Product Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Figtree:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap" rel="stylesheet">
+<style>
+  /* ===== TOKENS ===== */
+  :root {
+    /* type */
+    --font-display: "Instrument Serif", "Newsreader", Georgia, serif;
+    --font-sans: "Figtree", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+    /* warm off-white palette */
+    --bg:        oklch(0.975 0.008 75);
+    --bg-elev:   oklch(0.985 0.006 75);
+    --ink:       oklch(0.22 0.012 60);
+    --ink-2:     oklch(0.42 0.012 60);
+    --ink-3:     oklch(0.62 0.010 60);
+    --rule:      oklch(0.90 0.010 75);
+
+    /* muted accents — shared chroma 0.06 */
+    --sage:      oklch(0.86 0.055 145);
+    --sky:       oklch(0.87 0.050 230);
+    --sand:      oklch(0.90 0.045 80);
+    --blush:     oklch(0.88 0.045 30);
+    --lilac:     oklch(0.85 0.055 305);
+
+    /* sizes */
+    --step--1: 0.8125rem;   /* 13 */
+    --step-0:  0.9375rem;   /* 15 */
+    --step-1:  1.0625rem;   /* 17 */
+    --step-2:  1.375rem;    /* 22 */
+    --step-3:  2rem;        /* 32 */
+    --step-4:  3rem;        /* 48 */
+    --step-5:  4.5rem;      /* 72 */
+    --step-6:  7rem;        /* 112 */
+    --step-7:  10rem;       /* 160 */
+
+    /* spacing */
+    --s-1: 8px;
+    --s-2: 16px;
+    --s-3: 24px;
+    --s-4: 40px;
+    --s-5: 64px;
+    --s-6: 96px;
+    --s-7: 160px;
+
+    --radius: 14px;
+    --radius-lg: 22px;
+
+    --max: 1200px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: var(--step-1);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01", "ss02", "cv11";
+  }
+
+  ::selection { background: var(--sage); color: var(--ink); }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--s-4);
+  }
+
+  .mono {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.02em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+  }
+
+  .serif {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1;
+  }
+
+  /* ========= HEADER ========= */
+  header.nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in oklch, var(--bg) 82%, transparent);
+    backdrop-filter: saturate(130%) blur(10px);
+    -webkit-backdrop-filter: saturate(130%) blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s ease;
+  }
+  header.nav.scrolled { border-bottom-color: var(--rule); }
+  header.nav .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: var(--step-0);
+    color: var(--ink);
+  }
+  .brand b { font-weight: 500; letter-spacing: -0.01em; }
+  .brand .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--ink);
+    display: inline-block;
+    transform: translateY(-2px);
+  }
+  .brand .role {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--step-1);
+    color: var(--ink-2);
+    font-weight: 300;
+  }
+  nav.links {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    font-size: var(--step-0);
+    color: var(--ink-2);
+  }
+  nav.links a {
+    position: relative;
+    padding: 6px 0;
+  }
+  nav.links a:hover { color: var(--ink); }
+  nav.links a::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 2px;
+    height: 1px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .25s ease;
+  }
+  nav.links a:hover::after { transform: scaleX(1); }
+  .availability {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--step--1);
+    color: var(--ink-2);
+    padding: 6px 12px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    background: var(--bg-elev);
+  }
+  .pulse {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: oklch(0.70 0.15 150);
+    box-shadow: 0 0 0 0 oklch(0.70 0.15 150 / 0.7);
+    animation: pulse 2.2s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 oklch(0.70 0.15 150 / 0.55); }
+    70%  { box-shadow: 0 0 0 8px oklch(0.70 0.15 150 / 0); }
+    100% { box-shadow: 0 0 0 0 oklch(0.70 0.15 150 / 0); }
+  }
+
+  /* ========= HERO ========= */
+  .hero {
+    padding: clamp(90px, 14vh, 180px) 0 clamp(80px, 12vh, 140px);
+    position: relative;
+  }
+  .hero .meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 56px;
+    color: var(--ink-3);
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(3.25rem, 9.5vw, 10.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.028em;
+    margin: 0;
+    color: var(--ink);
+  }
+  .hero h1 .em {
+    font-style: italic;
+    color: var(--ink);
+    position: relative;
+  }
+  .hero h1 .em::before {
+    content: "";
+    position: absolute;
+    left: -0.04em; right: -0.04em;
+    bottom: 0.12em;
+    height: 0.34em;
+    background: var(--sage);
+    z-index: -1;
+    border-radius: 2px;
+    transform: skewX(-6deg);
+  }
+  .hero h1 .sw {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--ink-2);
+    font-weight: 300;
+  }
+  .hero .sub {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-5);
+    align-items: end;
+  }
+  .hero .sub p {
+    font-size: var(--step-2);
+    line-height: 1.4;
+    color: var(--ink-2);
+    max-width: 38ch;
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: -0.005em;
+  }
+  .hero .sub p .ink { color: var(--ink); font-weight: 400; }
+  .hero .sub .now {
+    justify-self: end;
+    text-align: right;
+    color: var(--ink-3);
+    font-size: var(--step-0);
+    line-height: 1.5;
+  }
+  .hero .sub .now span { color: var(--ink); }
+
+  /* small drifting token in hero corner */
+  .tape {
+    position: absolute;
+    right: var(--s-4);
+    top: 180px;
+    transform: rotate(6deg);
+    background: var(--sand);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--ink);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 10px 30px -18px rgba(0,0,0,0.25);
+    letter-spacing: 0.02em;
+  }
+  .tape::before, .tape::after {
+    content: "";
+    position: absolute;
+    width: 22px; height: 8px;
+    background: color-mix(in srgb, var(--sand) 70%, white);
+    top: -4px;
+    opacity: 0.8;
+  }
+  .tape::before { left: 8px; transform: rotate(-4deg); }
+  .tape::after { right: 8px; transform: rotate(4deg); }
+
+  /* ========= SECTION HEADER ========= */
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-top: 1px solid var(--rule);
+    padding-top: var(--s-3);
+    margin-bottom: var(--s-5);
+    gap: 32px;
+  }
+  .section-head .kicker {
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2rem, 3.8vw, 3.5rem);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin: 0;
+  }
+  .section-head h2 em { color: var(--ink-2); font-weight: 300; }
+  .section-head .aside {
+    color: var(--ink-3);
+    font-size: var(--step-0);
+    max-width: 30ch;
+    text-align: right;
+  }
+
+  /* ========= WORK ========= */
+  section.work { padding: var(--s-6) 0 var(--s-5); }
+
+  .cases {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-3);
+  }
+  .case {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease;
+    isolation: isolate;
+    text-decoration: none;
+    color: inherit;
+  }
+  .case:hover { transform: translateY(-3px); box-shadow: 0 30px 60px -40px rgba(20,20,20,0.25); }
+  .case.sage  { background: var(--sage); }
+  .case.sky   { background: var(--sky); }
+  .case.sand  { background: var(--sand); }
+  .case.blush { background: var(--blush); }
+  .case.lilac { background: var(--lilac); }
+
+  /* ===== Animated pastel gradient on hover (all cards) ===== */
+  .case { position: relative; }
+  .case::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background-size: 220% 220%;
+    background-position:
+      0% 0%, 100% 0%, 100% 100%, 0% 100%, 50% 50%;
+    opacity: 0;
+    transition: opacity .8s ease;
+    filter: blur(0.5px) saturate(115%);
+  }
+  .case:hover::before {
+    opacity: 1;
+    animation: pastelDrift 14s ease-in-out infinite;
+  }
+  .case > * { position: relative; z-index: 1; }
+  .case .preview { background: white; }
+
+  /* per-card palettes \u2014 all share the same drift, hues differ */
+  .case.lilac::before {
+    background:
+      radial-gradient(38% 55% at 18% 22%, oklch(0.90 0.08 320 / 0.95), transparent 65%),
+      radial-gradient(40% 55% at 82% 18%, oklch(0.92 0.07 230 / 0.85), transparent 60%),
+      radial-gradient(45% 60% at 72% 82%, oklch(0.93 0.07 80  / 0.85), transparent 60%),
+      radial-gradient(45% 60% at 22% 80%, oklch(0.92 0.07 150 / 0.85), transparent 60%),
+      radial-gradient(60% 70% at 50% 50%, oklch(0.93 0.06 30  / 0.50), transparent 70%);
+  }
+  .case.sage::before {
+    background:
+      radial-gradient(38% 55% at 18% 22%, oklch(0.92 0.07 150 / 0.95), transparent 65%),
+      radial-gradient(40% 55% at 82% 18%, oklch(0.93 0.07 80  / 0.85), transparent 60%),
+      radial-gradient(45% 60% at 72% 82%, oklch(0.92 0.07 230 / 0.85), transparent 60%),
+      radial-gradient(45% 60% at 22% 80%, oklch(0.90 0.08 320 / 0.75), transparent 60%),
+      radial-gradient(60% 70% at 50% 50%, oklch(0.94 0.05 110 / 0.55), transparent 70%);
+  }
+  .case.sky::before {
+    background:
+      radial-gradient(38% 55% at 18% 22%, oklch(0.92 0.07 230 / 0.95), transparent 65%),
+      radial-gradient(40% 55% at 82% 18%, oklch(0.90 0.08 320 / 0.85), transparent 60%),
+      radial-gradient(45% 60% at 72% 82%, oklch(0.93 0.07 200 / 0.85), transparent 60%),
+      radial-gradient(45% 60% at 22% 80%, oklch(0.92 0.07 150 / 0.75), transparent 60%),
+      radial-gradient(60% 70% at 50% 50%, oklch(0.94 0.05 250 / 0.55), transparent 70%);
+  }
+  .case.sand::before {
+    background:
+      radial-gradient(38% 55% at 18% 22%, oklch(0.93 0.07 80  / 0.95), transparent 65%),
+      radial-gradient(40% 55% at 82% 18%, oklch(0.93 0.06 30  / 0.85), transparent 60%),
+      radial-gradient(45% 60% at 72% 82%, oklch(0.92 0.07 150 / 0.80), transparent 60%),
+      radial-gradient(45% 60% at 22% 80%, oklch(0.90 0.08 320 / 0.65), transparent 60%),
+      radial-gradient(60% 70% at 50% 50%, oklch(0.95 0.04 90  / 0.55), transparent 70%);
+  }
+  .case.blush::before {
+    background:
+      radial-gradient(38% 55% at 18% 22%, oklch(0.93 0.06 30  / 0.95), transparent 65%),
+      radial-gradient(40% 55% at 82% 18%, oklch(0.90 0.08 320 / 0.85), transparent 60%),
+      radial-gradient(45% 60% at 72% 82%, oklch(0.93 0.07 80  / 0.80), transparent 60%),
+      radial-gradient(45% 60% at 22% 80%, oklch(0.92 0.07 230 / 0.65), transparent 60%),
+      radial-gradient(60% 70% at 50% 50%, oklch(0.95 0.04 50  / 0.55), transparent 70%);
+  }
+
+  @keyframes pastelDrift {
+    0%   { background-position: 0% 0%, 100% 0%, 100% 100%, 0% 100%, 50% 50%; }
+    25%  { background-position: 30% 20%, 70% 30%, 70% 70%, 30% 80%, 60% 40%; }
+    50%  { background-position: 100% 100%, 0% 100%, 0% 0%, 100% 0%, 40% 60%; }
+    75%  { background-position: 70% 80%, 30% 70%, 30% 30%, 70% 20%, 60% 50%; }
+    100% { background-position: 0% 0%, 100% 0%, 100% 100%, 0% 100%, 50% 50%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .case:hover::before { animation: none; }
+  }
+
+  /* preview / screenshot slot */
+  .case .preview {
+    position: relative;
+    margin: 14px 14px 0;
+    border-radius: 12px;
+    aspect-ratio: 16 / 10;
+    background: white;
+    border: 1px solid color-mix(in srgb, var(--ink) 6%, transparent);
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+  }
+  .case .preview::before {
+    content: none;
+  }
+  .case .preview .ph {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-2);
+    background: color-mix(in srgb, white 85%, transparent);
+    padding: 6px 10px;
+    border-radius: 6px;
+    z-index: 1;
+  }
+  .case .preview img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    object-position: center center;
+    display: block;
+    margin: auto;
+  }
+  .case .preview img.contain {
+    object-fit: contain;
+    padding: 18px;
+    width: 100%;
+    height: 100%;
+  }
+
+  .case .body {
+    padding: 22px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+  }
+
+  .case .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--ink-2);
+    font-size: var(--step--1);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 18px;
+  }
+  .case .top .tag {
+    color: var(--ink-2);
+  }
+  .case .title {
+    font-family: var(--font-display);
+    font-size: clamp(1.7rem, 2.6vw, 2.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 2px 0 0;
+    color: var(--ink);
+    font-weight: 400;
+    max-width: 18ch;
+  }
+  .case .title em { font-style: italic; color: var(--ink-2); }
+  .case .desc {
+    color: var(--ink-2);
+    max-width: 44ch;
+    font-size: var(--step-0);
+    line-height: 1.5;
+    margin: 0;
+  }
+  .case .row {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+    padding-top: 18px;
+    gap: 16px;
+    min-height: 72px;
+  }
+  .case .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 22px 0 24px;
+    min-height: 56px;
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 999px;
+    font-size: var(--step-0);
+    letter-spacing: -0.005em;
+    font-weight: 500;
+    white-space: nowrap;
+    align-self: center;
+    transition: background .25s ease;
+  }
+  .case .cta svg { transition: transform .3s ease; display: block; }
+  .case:hover .cta { background: color-mix(in srgb, var(--ink) 82%, white); }
+  .case:hover .cta svg { transform: translate(3px, -3px); }
+
+  .case .metric {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+  }
+  .case .metric .big {
+    font-family: var(--font-display);
+    font-size: 56px;
+    line-height: 56px;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+  }
+  .case .metric .big .tiny {
+    font-size: 0.42em;
+    font-style: italic;
+    color: var(--ink-2);
+    margin-left: 2px;
+    letter-spacing: 0;
+    vertical-align: 0.6em;
+  }
+  .case .metric .lbl {
+    font-family: var(--font-sans);
+    font-size: var(--step-0);
+    color: var(--ink-2);
+    text-transform: none;
+    letter-spacing: -0.005em;
+    max-width: 18ch;
+    line-height: 1.25;
+    font-weight: 400;
+  }
+  .case .tag {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--ink-2);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* visual glyphs inside cases — abstract, not illustration */
+  .viz {
+    position: absolute;
+    inset: auto 0 38% 0;
+    pointer-events: none;
+    opacity: 0.9;
+  }
+  .viz.sage-viz {
+    right: 30px; left: auto; top: 30px; bottom: auto;
+    width: 140px; height: 140px;
+  }
+  .viz.sage-viz svg { width: 100%; height: 100%; }
+
+  /* Make the first wide — side-by-side preview + body */
+  .case.wide { grid-column: span 2; }
+  .case.wide { flex-direction: row; }
+  .case.wide .preview {
+    margin: 14px 0 14px 14px;
+    flex: 1.1;
+    aspect-ratio: auto;
+    min-height: 360px;
+  }
+  .case.wide .body {
+    flex: 1;
+    padding: 32px 36px 28px;
+    justify-content: space-between;
+  }
+  .case.wide .title { font-size: clamp(2rem, 3.4vw, 3rem); max-width: 16ch; }
+
+  /* ========= METRICS ========= */
+  section.metrics { padding: var(--s-6) 0; }
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .metric-cell {
+    background: var(--bg);
+    padding: 44px 28px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .metric-cell .num {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(3.8rem, 7vw, 6.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+  .metric-cell .num .tiny {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.4em;
+    color: var(--ink-2);
+    vertical-align: 0.6em;
+    margin-left: 4px;
+    letter-spacing: 0;
+  }
+  .metric-cell .lbl {
+    font-size: var(--step-0);
+    color: var(--ink-2);
+    max-width: 22ch;
+    line-height: 1.45;
+  }
+  .metric-cell .lbl b { color: var(--ink); font-weight: 500; }
+
+  /* ========= APPROACH (editorial) ========= */
+  section.approach {
+    padding: var(--s-6) 0;
+  }
+  .approach-body {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--s-6);
+    align-items: start;
+  }
+  .approach-body .lead {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .approach-body .lead em { color: var(--ink-2); }
+  .approach-body .cols {
+    columns: 2;
+    column-gap: var(--s-5);
+    color: var(--ink-2);
+    font-size: var(--step-1);
+    line-height: 1.65;
+  }
+  .approach-body .cols p { margin: 0 0 1em; break-inside: avoid; }
+  .approach-body .cols p::first-letter {
+  }
+  .approach-body .cols .drop {
+    font-family: var(--font-display);
+    float: left;
+    font-size: 3.6em;
+    line-height: 0.85;
+    padding: 0.08em 0.1em 0 0;
+    color: var(--ink);
+  }
+
+  /* ========= CONTACT ========= */
+  section.contact {
+    padding: var(--s-7) 0 var(--s-6);
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .contact .label {
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    font-size: var(--step--1);
+    letter-spacing: 0.04em;
+    margin-bottom: var(--s-4);
+  }
+  .contact h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(3rem, 8vw, 8rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin: 0 0 var(--s-4);
+    color: var(--ink);
+  }
+  .contact h2 em { color: var(--ink-2); font-weight: 300; }
+  .contact .mail {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 6px;
+    transition: color .2s, border-color .2s, transform .3s;
+  }
+  .contact .mail:hover { color: var(--ink-2); border-color: var(--ink-2); transform: translateX(4px); }
+  .contact .mail svg { transition: transform .3s; }
+  .contact .mail:hover svg { transform: translate(4px, -4px); }
+  .contact .note {
+    margin-top: var(--s-4);
+    color: var(--ink-2);
+    max-width: 44ch;
+    font-size: var(--step-1);
+    line-height: 1.55;
+  }
+
+  /* ========= FOOTER ========= */
+  footer.ft {
+    padding: var(--s-4) 0 var(--s-4);
+    color: var(--ink-3);
+    font-size: var(--step--1);
+    border-top: 1px solid var(--rule);
+  }
+  footer.ft .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  footer.ft .socials { display: flex; gap: 20px; }
+  footer.ft a:hover { color: var(--ink); }
+  footer.ft .mono { color: var(--ink-3); }
+
+  /* ========= TYPE NOTES (quiet teaching moment) ========= */
+  section.typenotes {
+    padding: var(--s-6) 0;
+    border-top: 1px solid var(--rule);
+  }
+  .type-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-3);
+    margin-top: var(--s-4);
+  }
+  .type-card {
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 28px 26px;
+    background: var(--bg-elev);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-height: 300px;
+  }
+  .type-card .idx {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--ink-3);
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .type-card .demo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .type-card .demo .h {
+    font-size: 2.4rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .type-card .demo .b {
+    font-size: var(--step-0);
+    color: var(--ink-2);
+    line-height: 1.5;
+  }
+  .type-card .why {
+    margin-top: auto;
+    color: var(--ink-2);
+    font-size: var(--step-0);
+    line-height: 1.55;
+  }
+  .type-card .why b { color: var(--ink); font-weight: 500; }
+
+  /* type pairings */
+  .pair-1 .h { font-family: "Instrument Serif", serif; }
+  .pair-1 .b { font-family: "Figtree", system-ui, sans-serif; }
+  .pair-2 .h { font-family: "Fraunces", serif; font-weight: 400; }
+  .pair-2 .b { font-family: "Figtree", system-ui, sans-serif; }
+  .pair-3 .h { font-family: "Newsreader", serif; font-style: italic; font-weight: 400; }
+  .pair-3 .b { font-family: "JetBrains Mono", monospace; font-size: 0.85rem !important; }
+
+  /* ========= TWEAKS PANEL ========= */
+  .tweaks {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 280px;
+    background: var(--bg-elev);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-size: var(--step--1);
+    color: var(--ink-2);
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.25);
+    z-index: 60;
+    display: none;
+  }
+  .tweaks.visible { display: block; }
+  .tweaks h4 {
+    margin: 0 0 12px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    font-size: var(--step--1);
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .tweaks .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .tweaks .row:first-of-type { border-top: none; }
+  .tweaks .row label { color: var(--ink-2); }
+  .tweaks .seg {
+    display: flex;
+    gap: 4px;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 3px;
+  }
+  .tweaks .seg button {
+    background: none;
+    border: 0;
+    padding: 4px 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .tweaks .seg button.on {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .tweaks .swatches { display: flex; gap: 6px; }
+  .tweaks .sw {
+    width: 20px; height: 20px; border-radius: 5px;
+    border: 1px solid var(--rule);
+    cursor: pointer;
+  }
+  .tweaks .sw.on { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+  /* font family variants */
+  body[data-display="instrument"] { --font-display: "Instrument Serif", serif; }
+  body[data-display="fraunces"]   { --font-display: "Fraunces", serif; }
+  body[data-display="newsreader"] { --font-display: "Newsreader", serif; }
+
+  body[data-accent="sage"]  { --hero-hl: var(--sage); }
+  body[data-accent="sky"]   { --hero-hl: var(--sky); }
+  body[data-accent="sand"]  { --hero-hl: var(--sand); }
+  body[data-accent="blush"] { --hero-hl: var(--blush); }
+
+  .hero h1 .em::before { background: var(--hero-hl, var(--sage)); }
+
+  /* responsive */
+  @media (max-width: 960px) {
+    .hero .sub { grid-template-columns: 1fr; gap: 24px; }
+    .hero .sub .now { justify-self: start; text-align: left; }
+    .cases { grid-template-columns: 1fr; }
+    .case.wide { flex-direction: column; }
+    .case.wide .preview { margin: 14px 14px 0; aspect-ratio: 16/10; min-height: 0; }
+    .case.wide .body { padding: 22px 28px 24px; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    .approach-body { grid-template-columns: 1fr; gap: var(--s-4); }
+    .approach-body .cols { columns: 1; }
+    .type-grid { grid-template-columns: 1fr; }
+    .tape { display: none; }
+    nav.links { gap: 16px; }
+    nav.links .hide-sm { display: none; }
+  }
+  @media (max-width: 560px) {
+    .wrap { padding: 0 22px; }
+    nav.links a:not(.availability):not(.cv) { display: none; }
+  }
+</style>
+</head>
+<body data-display="instrument" data-accent="sage">
+
+<!-- ================ TWEAKS CONFIG (persisted) ================ -->
+<script>
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "displayFont": "instrument",
+    "accent": "sage",
+    "density": "normal"
+  }/*EDITMODE-END*/;
+</script>
+
+<!-- ================ HEADER ================ -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="brand" aria-label="Home">
+      <span class="dot"></span>
+      <b>Kate Babenko</b>
+      <span class="role">— product designer</span>
+    </a>
+    <nav class="links" aria-label="Primary">
+      <a href="#work" class="hide-sm">Work</a>
+      <a href="#approach" class="hide-sm">Approach</a>
+      <a href="#contact" class="hide-sm">Contact</a>
+      <a href="/kate-alden-cv.pdf" class="cv">CV ↗</a>
+      <span class="availability" aria-label="Availability">
+        <span class="pulse"></span> Open, Q3 ’26
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================ HERO ================ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="meta-row">
+      <span class="mono">INDEX · 01 / PORTFOLIO · 2019—2026</span>
+      <span class="mono">WARSAW · 52.23°N, 21.01°E</span>
+    </div>
+
+    <h1>
+      I’m <span class="em">Kate</span> — a Product<br />
+      Designer with <span class="em">7 years</span><br />
+      of experience creating<br />
+      intuitive, high-performing<br />
+      <span class="sw">interfaces</span> for B2B &amp; B2C.
+    </h1>
+
+    <div class="sub">
+      <p>
+        I work at the seam of <span class="ink">research, systems, and product craft</span> — from ad platforms at Yandex to mobile apps used by hundreds of thousands of people.
+      </p>
+      <div class="now">
+        Most recently at<br />
+        <span>Yandex</span> · prev. a top-10 Russian design studio<br />
+        <span class="mono" style="display:block;margin-top:8px;">EST. 2018</span>
+      </div>
+    </div>
+  </div>
+  <div class="tape">available · 2026</div>
+</section>
+
+<!-- ================ SELECTED WORK ================ -->
+<section class="work" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">
+        <span class="mono">§ 01</span>
+        <h2>Selected <em>work</em></h2>
+      </div>
+      <div class="aside">Four projects chosen for the problem, not the pixels. 2022 — 2026.</div>
+    </div>
+
+    <div class="cases">
+      <!-- Case 0 — wide — Lilac (DoubleB) -->
+      <a href="cases/doubleb.html" class="case lilac wide">
+        <div class="preview" role="img" aria-label="DoubleB mobile loyalty app">
+          <span class="ph">Interface · ДаблБи app</span>
+        </div>
+        <div class="body">
+          <div>
+            <div class="top"><span>DoubleB · 2020</span><span class="tag">Sole Designer</span></div>
+            <h3 class="title">Coffee, ordered <em>before</em> you’re in line.</h3>
+            <p class="desc" style="margin-top: 14px;">
+              Mobile loyalty and ordering app for the coffee brand DoubleB. Designed to keep orders fast, contactless, and personal during COVID — without losing the warmth of a regular café visit.
+            </p>
+          </div>
+          <div class="row">
+            <div class="metric">
+              <div class="big">35K</div>
+              <div class="lbl" style="width: 122px">App downloads in the first season</div>
+            </div>
+            <span class="cta">Explore the case
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12 L12 2 M4 2 H12 V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Case 1 — wide — Yandex Direct SMB -->
+      <a href="cases/yandex-direct-smb.html" class="case sage wide">
+        <div class="preview" role="img" aria-label="Yandex Direct campaign interface">
+          <span class="ph">Interface · Yandex Direct</span>
+        </div>
+        <div class="body">
+          <div>
+            <div class="top"><span>Yandex Direct · 2023</span><span class="tag">Product Designer</span></div>
+            <h3 class="title">Improving campaigns for <em>SMBs</em> in Yandex Direct.</h3>
+            <p class="desc" style="margin-top: 14px;">
+              After launching the new campaign flow in Direct, we noticed a drop in results. I refined the interface for better clarity and usability — making it easier for small businesses to launch and manage ads.
+            </p>
+          </div>
+          <div class="row">
+            <div class="metric">
+              <div class="big">×1.8</div>
+              <div class="lbl" style="width: 122px">Increase in payment conversions</div>
+            </div>
+            <span class="cta">Explore the case
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12 L12 2 M4 2 H12 V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Case 2 — Overdraft -->
+      <a href="cases/yandex-direct-overdraft.html" class="case sand">
+        <div class="preview" role="img" aria-label="Yandex Direct overdraft interface">
+          <span class="ph">Interface · Overdraft</span>
+        </div>
+        <div class="body">
+          <div class="top"><span>Yandex Direct · 2022</span><span class="tag">Product Designer</span></div>
+          <h3 class="title">Overdraft in <em>Direct</em>, made easier to find.</h3>
+          <p class="desc">
+            Made the feature easier to discover and use — helping advertisers keep their ads running without breaks in delivery.
+          </p>
+          <div class="row">
+            <div class="metric">
+              <div class="big">11K</div>
+              <div class="lbl" style="width: 122px">Overdrafts activated after the new interface</div>
+            </div>
+            <span class="cta">Explore the case
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12 L12 2 M4 2 H12 V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Case 3 — Direct app -->
+      <a href="cases/yandex-direct-app.html" class="case sky">
+        <div class="preview" role="img" aria-label="Yandex Direct mobile app">
+          <img src="assets/direct-app.png" alt="Yandex Direct mobile app screens" class="contain" />
+        </div>
+        <div class="body">
+          <div class="top"><span>Yandex Direct · 2024</span><span class="tag">Lead Designer</span></div>
+          <h3 class="title">Direct app, shipped in <em>7 months</em>.</h3>
+          <p class="desc">
+            Designed the app from scratch to grow SMB and pro audiences — making ad management simple, fast, and mobile-first.
+          </p>
+          <div class="row">
+            <div class="metric">
+              <div class="big">120K</div>
+              <div class="lbl" style="width: 122px">Users reached in 4 months after launch</div>
+            </div>
+            <span class="cta">Explore the case
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12 L12 2 M4 2 H12 V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Case 4 — Yandex Business -->
+      <a href="cases/yandex-business.html" class="case blush">
+        <div class="preview" role="img" aria-label="Yandex Business unified ad creation">
+          <span class="ph">Interface · Yandex Business</span>
+        </div>
+        <div class="body">
+          <div class="top"><span>Yandex Business · 2023</span><span class="tag">Product Designer</span></div>
+          <h3 class="title">New unified ad creation in <em>Yandex Business</em>.</h3>
+          <p class="desc">
+            Redesigned the campaign-creation flow to unify different ad types, simplify navigation, and make setup faster and clearer.
+          </p>
+          <div class="row">
+            <div class="metric">
+              <div class="big">×3</div>
+              <div class="lbl" style="width: 122px">Faster ad creation with unified flow &amp; autofill</div>
+            </div>
+            <span class="cta">Explore the case
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12 L12 2 M4 2 H12 V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================ METRICS ================ -->
+<section class="metrics">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">
+        <span class="mono">§ 02</span>
+        <h2>By the <em>numbers</em></h2>
+      </div>
+      <div class="aside">A decade of shipping, measured where it mattered.</div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="metrics-grid">
+      <div class="metric-cell">
+        <div class="num">7<span class="tiny">yrs</span></div>
+        <div class="lbl"><b>Designing product.</b> Across ad platforms, fintech, e-commerce, and consumer apps.</div>
+      </div>
+      <div class="metric-cell">
+        <div class="num">120<span class="tiny">K</span></div>
+        <div class="lbl"><b>Users</b> reached in 4 months with the Direct mobile app.</div>
+      </div>
+      <div class="metric-cell">
+        <div class="num">×3</div>
+        <div class="lbl"><b>Faster ad creation</b> with unified flow and autofilling in Yandex Business.</div>
+      </div>
+      <div class="metric-cell">
+        <div class="num">B2B<span class="tiny">+B2C</span></div>
+        <div class="lbl"><b>Shipping for both</b> — from advertisers to everyday consumers.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ APPROACH ================ -->
+<section class="approach" id="approach">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">
+        <h2>How I <em>work</em></h2>
+      </div>
+      <div class="aside">Short version: slow at the start, fast at the end.</div>
+    </div>
+
+    <div class="approach-body">
+      <p class="lead">
+        Before Yandex, I designed at a <em>top-10 Russian design studio</em> — working across e-commerce, fintech, real estate, media, and SaaS.
+      </p>
+      <div class="cols">
+        <p><span class="drop">I</span> contributed to UX research, shaped product strategy, and shipped web and mobile interfaces for teams of every shape. That range is why I think of product design as a clarity practice first and a visual one second — if the thing is hard to write about, it’s going to be hard to use.</p>
+
+        <p>In 2020 I designed <b>ДомОуправление</b> — a concierge-style rental app for landlords and tenants. End-to-end, from research to launch, simplifying listing and rental management for both sides of the market.</p>
+
+        <p>During COVID I shipped <b>ДаблБи</b>, the mobile loyalty and ordering app for the coffee brand DoubleB — a system that helped them keep coffee orders fast, contactless, and personal while the world was re-learning how to buy a flat white.</p>
+
+        <p>What stays consistent across all of it: I lead with the person using the product, work tightly with engineering, and try to make interfaces that feel obvious in hindsight.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ TYPE NOTES ================ -->
+<section class="typenotes">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">
+        <span class="mono">§ 04</span>
+        <h2>Type, briefly.</h2>
+      </div>
+      <div class="aside">The pairings considered for this site, and why one stuck.</div>
+    </div>
+
+    <div class="type-grid">
+      <div class="type-card pair-1">
+        <div class="idx"><span>Pair 01 · in use</span><span>Instrument Serif + Figtree</span></div>
+        <div class="demo">
+          <div class="h">Calm, considered.</div>
+          <div class="b">A serif with soft, pinched terminals meets a neutral modern sans — warmth without nostalgia.</div>
+        </div>
+        <div class="why"><b>Why it works.</b> Instrument Serif is editorial at display sizes but doesn’t get precious. Figtree’s geometric bones keep UI crisp. Together: a magazine cover with a product brain.</div>
+      </div>
+
+      <div class="type-card pair-2">
+        <div class="idx"><span>Pair 02 · alt</span><span>Fraunces + Figtree</span></div>
+        <div class="demo">
+          <div class="h">Warm, opinionated.</div>
+          <div class="b">Variable-axis serif paired with the same sans, tuned toward a softer, more playful tone.</div>
+        </div>
+        <div class="why"><b>Why it works.</b> Fraunces brings optical sizing and personality — almost too much. Best when you want the site to feel <i>human</i> over <i>senior</i>. Pulls editorial down a notch.</div>
+      </div>
+
+      <div class="type-card pair-3">
+        <div class="idx"><span>Pair 03 · alt</span><span>Newsreader + JetBrains Mono</span></div>
+        <div class="demo">
+          <div class="h"><i>Quieter, literary.</i></div>
+          <div class="b">News-inspired serif with a monospace body for a research-notebook feeling.</div>
+        </div>
+        <div class="why"><b>Why it works.</b> Swaps the sans for mono — slows reading, signals craft. Ideal for a case-study heavy portfolio but too niche for every surface.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ CONTACT ================ -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="label">§ 05 — GET IN TOUCH</div>
+    <h2>Let’s make <em>something</em><br/>worth using.</h2>
+    <a class="mail" href="mailto:kate.babenko@mail.com">
+      kate.babenko@mail.com
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 18 L18 4 M7 4 H18 V15" stroke="currentColor" stroke-width="1.4"/></svg>
+    </a>
+    <p class="note">
+      I read everything. Intros, questions, a link to something you’re proud of — all welcome. I’m slower on LinkedIn.
+    </p>
+  </div>
+</section>
+
+<!-- ================ FOOTER ================ -->
+<footer class="ft">
+  <div class="wrap">
+    <div class="mono">© 2026 · Kate Babenko · product designer</div>
+    <div class="socials">
+      <a href="#">Telegram</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">CV</a>
+      <a href="#top">Top ↑</a>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<!-- ================ TWEAKS ================ -->
+<div class="tweaks" id="tweaks" aria-hidden="true">
+  <h4>Tweaks <span class="mono" style="color:var(--ink-3);font-weight:400;">local</span></h4>
+  <div class="row">
+    <label>Display font</label>
+    <div class="seg" data-group="display">
+      <button data-val="instrument" class="on">Instr.</button>
+      <button data-val="fraunces">Fraun.</button>
+      <button data-val="newsreader">News.</button>
+    </div>
+  </div>
+  <div class="row">
+    <label>Hero accent</label>
+    <div class="swatches" data-group="accent">
+      <div class="sw on" data-val="sage" style="background: oklch(0.86 0.055 145)"></div>
+      <div class="sw" data-val="sky" style="background: oklch(0.87 0.050 230)"></div>
+      <div class="sw" data-val="sand" style="background: oklch(0.90 0.045 80)"></div>
+      <div class="sw" data-val="blush" style="background: oklch(0.88 0.045 30)"></div>
+    </div>
+  </div>
+  <div class="row">
+    <label>Density</label>
+    <div class="seg" data-group="density">
+      <button data-val="normal" class="on">Normal</button>
+      <button data-val="roomy">Roomy</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Sticky header underline
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 6);
+  document.addEventListener('scroll', onScroll, { passive: true });
+
+  // ===== TWEAKS protocol =====
+  const tweaksEl = document.getElementById('tweaks');
+  let tweaksActive = false;
+
+  const applyTweaks = (state) => {
+    document.body.dataset.display = state.displayFont;
+    document.body.dataset.accent = state.accent;
+    if (state.density === 'roomy') {
+      document.documentElement.style.setProperty('--s-6', '140px');
+      document.documentElement.style.setProperty('--s-7', '220px');
+    } else {
+      document.documentElement.style.removeProperty('--s-6');
+      document.documentElement.style.removeProperty('--s-7');
+    }
+    // sync buttons
+    tweaksEl.querySelectorAll('[data-group]').forEach(group => {
+      const key = group.dataset.group === 'display' ? 'displayFont'
+                : group.dataset.group === 'accent' ? 'accent'
+                : 'density';
+      group.querySelectorAll('[data-val]').forEach(b => {
+        b.classList.toggle('on', b.dataset.val === state[key]);
+      });
+    });
+  };
+
+  let tweakState = { ...TWEAK_DEFAULTS };
+  applyTweaks(tweakState);
+
+  tweaksEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-val]');
+    if (!btn) return;
+    const group = btn.closest('[data-group]').dataset.group;
+    const val = btn.dataset.val;
+    const key = group === 'display' ? 'displayFont' : group === 'accent' ? 'accent' : 'density';
+    tweakState = { ...tweakState, [key]: val };
+    applyTweaks(tweakState);
+    // persist to host
+    const payloadKey = key;
+    try {
+      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [payloadKey]: val } }, '*');
+    } catch (_) {}
+  });
+
+  // register listener first, then announce
+  window.addEventListener('message', (ev) => {
+    const d = ev.data || {};
+    if (d.type === '__activate_edit_mode') {
+      tweaksActive = true;
+      tweaksEl.classList.add('visible');
+      tweaksEl.setAttribute('aria-hidden', 'false');
+    } else if (d.type === '__deactivate_edit_mode') {
+      tweaksActive = false;
+      tweaksEl.classList.remove('visible');
+      tweaksEl.setAttribute('aria-hidden', 'true');
+    }
+  });
+  try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch (_) {}
+</script>
+
+</body>
+</html>
