@@ -3,11 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Direct app in 7 months — Kate Babenko</title>
+<title>Yandex Direct Mobile — Kate Babenko</title>
+<meta name="description" content="Turning Direct into a mobile-first tool for SMBs. Case study by Kate Babenko." />
 <link rel="stylesheet" href="case.css" />
 </head>
 <body>
 
+<!-- ============== HEADER ============== -->
 <header class="nav" id="nav">
   <div class="wrap">
     <a class="back-link" href="../Portfolio.html#work">
@@ -26,75 +28,428 @@
 
 <main>
 
-<section class="case-hero">
-  <div class="wrap">
-    <div class="meta-row t-mono">
-      <span>Yandex Direct</span>
+<!-- ============== EDITORIAL HERO (reusable cover) ============== -->
+<section class="editorial-hero" data-float="on">
+  <div class="eh-blur" aria-hidden="true"></div>
+  <div class="eh-inner">
+
+    <div class="eh-meta">
+      <span>Lead Designer</span>
       <span class="pip" aria-hidden="true"></span>
-      <span>2024</span>
+      <span>Team of 5</span>
       <span class="pip" aria-hidden="true"></span>
-      <span>Mobile · iOS + Android</span>
+      <span>Shipped in 7 months</span>
     </div>
 
-    <h1 class="t-display">
-      Direct app, shipped<br/>in <em>7 months</em>.
+    <h1 class="eh-title">
+      Turning <em>Direct</em> into a<br/>
+      <em>mobile-first</em> tool for SMBs
     </h1>
 
-    <div class="hero-grid">
-      <div class="intro">
-        <p class="t-lead measure">
-          Designed the Direct mobile app from scratch to grow SMB and pro audiences — making ad management simple, fast, and mobile-first.
-        </p>
-        <p class="t-caption">Role · Lead Designer</p>
-      </div>
-
-      <div class="key-visual tinted sky" role="img" aria-label="Direct app in 7 months cover">
-        <img class="contain" src="../assets/direct-app.png" alt="Direct app in 7 months" />
-      </div>
+    <div class="eh-screens" aria-hidden="true">
+      <div class="eh-phone is-wide"><img src="../assets/direct-app/slide-1.png" alt="Promote organization in maps" /></div>
+      <div class="eh-phone"><img src="../assets/direct-app/slide-2.png" alt="Account overview with balance" /></div>
+      <div class="eh-phone"><img src="../assets/direct-app/slide-3.png" alt="Campaigns list with stats" /></div>
+      <div class="eh-phone"><img src="../assets/direct-app/slide-4.png" alt="Describe your business for AI" /></div>
+    </div>
+    <div class="carousel-dots" data-for=".eh-screens" aria-hidden="true">
+      <span class="dot is-active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
     </div>
 
-    <div class="case-facts">
-      <div class="fact"><span class="k">Client</span><span class="v">Yandex Direct</span></div>
-      <div class="fact"><span class="k">Year</span><span class="v">2024</span></div>
-      <div class="fact"><span class="k">Scope</span><span class="v">iOS + Android</span></div>
-      <div class="fact"><span class="k">Role</span><span class="v">Lead Designer</span></div>
-    </div>
+    <p class="eh-desc">
+      We redesigned the app into a simple, scalable tool that enables small businesses to launch and manage campaigns directly from a phone.
+    </p>
+
   </div>
 </section>
 
+<!-- ============== 1 · CONTEXT ============== -->
 <section class="section">
   <div class="wrap">
-    <div class="stub">
-      <div class="badge">Case study · in progress</div>
-      <h2 class="t-h1">Writing this one up <em>properly</em>.</h2>
-      <p class="t-lead measure" style="text-align:center;">
-        Process, decisions, what worked, what didn’t — coming soon. Until then, happy to walk you through it live.
-      </p>
-      <div class="actions">
-        <a class="btn" href="mailto:kate.babenko@mail.com">Request walkthrough</a>
-        <a class="btn ghost" href="../Portfolio.html#work">Back to all work</a>
+    <div class="section-head">
+      <div class="label t-caption">01 · Context</div>
+      <h2 class="t-h1 title">Mobile became the channel<br/>for scaling <em>SMBs</em>.</h2>
+    </div>
+
+    <div class="text-block">
+      <div></div>
+      <div class="body">
+        <p class="t-body measure" style="color:var(--ink-2);">
+          In 2024, mobile became a key channel for scaling SMB advertisers in Direct. The goal was to improve <em>activation, retention, and LTV</em>.
+        </p>
+      </div>
+    </div>
+
+    <div class="stat-spheres" aria-label="Mobile usage among SMBs">
+      <svg class="spheres-svg spheres-desktop" viewBox="0 0 1100 540" preserveAspectRatio="xMaxYMax meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width: 879px; height: 425px">
+        <defs>
+          <radialGradient id="sphereGrad" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+            <stop offset="0%" stop-color="#141414"/>
+            <stop offset="100%" stop-color="#1D43AA"/>
+          </radialGradient>
+        </defs>
+        <!-- baselines aligned to bottom; circles touch -->
+        <circle cx="240" cy="400" r="120" fill="url(#sphereGrad)"/>
+        <circle cx="510" cy="340" r="180" fill="url(#sphereGrad)"/>
+        <circle cx="860" cy="290" r="230" fill="url(#sphereGrad)"/>
+
+        <!-- numbers (Instrument Serif) -->
+        <text x="240" y="400" text-anchor="middle" fill="#fff"
+              font-family="Instrument Serif, serif" font-size="64" letter-spacing="-1">64%</text>
+        <text x="510" y="325" text-anchor="middle" fill="#fff"
+              font-family="Instrument Serif, serif" font-size="92" letter-spacing="-1.5">72%</text>
+        <text x="860" y="265" text-anchor="middle" fill="#fff"
+              font-family="Instrument Serif, serif" font-size="108" letter-spacing="-2">89%</text>
+
+        <!-- captions -->
+        <text x="240" y="440" text-anchor="middle" fill="rgba(255,255,255,0.92)"
+              font-family="Figtree, system-ui, sans-serif" font-size="14">
+          <tspan x="240" dy="0">of SMBs often handle</tspan>
+          <tspan x="240" dy="18">advertising themselves</tspan>
+        </text>
+        <text x="510" y="380" text-anchor="middle" fill="rgba(255,255,255,0.92)"
+              font-family="Figtree, system-ui, sans-serif" font-size="15">
+          <tspan x="510" dy="0">SMBs rely on mobile</tspan>
+          <tspan x="510" dy="20">for daily business tasks</tspan>
+        </text>
+        <text x="860" y="330" text-anchor="middle" fill="rgba(255,255,255,0.92)"
+              font-family="Figtree, system-ui, sans-serif" font-size="16">
+          <tspan x="860" dy="0">of SMB users regularly switch</tspan>
+          <tspan x="860" dy="22">between business tasks and</tspan>
+          <tspan x="860" dy="22">analytics from mobile devices.</tspan>
+        </text>
+      </svg>
+
+      <svg class="spheres-svg spheres-mobile" viewBox="0 0 600 640" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- 89% top-center (large) -->
+        <circle cx="290" cy="240" r="230" fill="url(#sphereGrad)"/>
+        <!-- 64% bottom-left (small) -->
+        <circle cx="170" cy="490" r="140" fill="url(#sphereGrad)"/>
+        <!-- 72% bottom-right (medium) -->
+        <circle cx="430" cy="470" r="170" fill="url(#sphereGrad)"/>
+
+        <!-- 89% -->
+        <text x="290" y="225" text-anchor="middle" fill="#fff"
+              font-family="Instrument Serif, serif" font-size="78" letter-spacing="-1.5">89%</text>
+        <text x="290" y="270" text-anchor="middle" fill="rgba(255,255,255,0.92)"
+              font-family="Figtree, system-ui, sans-serif" font-size="16">
+          <tspan x="290" dy="0">of SMB users regularly</tspan>
+          <tspan x="290" dy="20">switch between business</tspan>
+          <tspan x="290" dy="20">tasks and analytics from</tspan>
+          <tspan x="290" dy="20">mobile devices.</tspan>
+        </text>
+
+        <!-- 64% -->
+        <text x="170" y="478" text-anchor="middle" fill="#fff"
+              font-family="Instrument Serif, serif" font-size="56" letter-spacing="-1">64%</text>
+        <text x="170" y="510" text-anchor="middle" fill="rgba(255,255,255,0.92)"
+              font-family="Figtree, system-ui, sans-serif" font-size="13">
+          <tspan x="170" dy="0">of SMBs handle</tspan>
+          <tspan x="170" dy="16">advertising</tspan>
+          <tspan x="170" dy="16">themselves</tspan>
+        </text>
+
+        <!-- 72% -->
+        <text x="430" y="455" text-anchor="middle" fill="#fff"
+              font-family="Instrument Serif, serif" font-size="68" letter-spacing="-1.2">72%</text>
+        <text x="430" y="495" text-anchor="middle" fill="rgba(255,255,255,0.92)"
+              font-family="Figtree, system-ui, sans-serif" font-size="14">
+          <tspan x="430" dy="0">SMBs rely on mobile</tspan>
+          <tspan x="430" dy="18">for daily business tasks</tspan>
+        </text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 2 · PROBLEM ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head section-head--reverse">
+      <h2 class="t-h1 title">The existing app could not <em>support growth</em>.</h2>
+      <div class="label t-caption">02 · Problem</div>
+    </div>
+
+    <p class="t-lead measure" style="color:var(--ink-2); max-width:60ch;">
+      In 2024, mobile became a key channel for scaling SMB advertisers in Direct. The goal was to improve activation, retention, and LTV.
+    </p>
+
+    <div class="old-screens">
+      <div class="old-phone"><img src="../assets/direct-app/old-1.png" alt="Old · Campaigns" /></div>
+      <div class="old-phone"><img src="../assets/direct-app/old-2.png" alt="Old · Summary" /></div>
+      <div class="old-phone"><img src="../assets/direct-app/old-3.png" alt="Old · Stats" /></div>
+    </div>
+    <div class="carousel-dots" data-for=".old-screens" aria-hidden="true">
+      <span class="dot is-active"></span><span class="dot"></span><span class="dot"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 3 · APPROACH ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="label t-caption">03 · Approach</div>
+      <h2 class="t-h1 title">Rebuild from <em>scratch</em>, mobile-first.</h2>
+    </div>
+
+    <div class="text-block">
+      <p class="t-mono">Direction</p>
+      <div class="body">
+        <p class="t-lead measure" style="color:var(--ink);">
+          We rebuilt the app from scratch, focusing on making mobile a <em>simple entry point</em> for SMB users.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top: var(--s-6);">
+      <div class="figure col-span-12">
+        <div class="frame ratio-21x9 tinted sky">
+          <span class="ph">Approach diagram · entry → activation → retention → LTV</span>
+        </div>
+        <div class="caption">
+          <span class="num">FIG 03</span>
+          <span class="desc">A simple lifecycle map guiding scope decisions.</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ============== 4 · MVP SCOPE ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="label t-caption">04 · MVP scope</div>
+      <h2 class="t-h1 title">Six core <em>activation</em> scenarios.</h2>
+    </div>
+
+    <div class="grid">
+      <div class="figure col-span-4">
+        <div class="frame ratio-9x16"><span class="ph">01 · Registration &amp; login</span></div>
+        <div class="caption"><span class="num">MVP · 01</span><span class="desc">Get in fast.</span></div>
+      </div>
+      <div class="figure col-span-4">
+        <div class="frame ratio-9x16"><span class="ph">02 · Easy Start campaign</span></div>
+        <div class="caption"><span class="num">MVP · 02</span><span class="desc">Launch in minutes.</span></div>
+      </div>
+      <div class="figure col-span-4">
+        <div class="frame ratio-9x16"><span class="ph">03 · Campaign list</span></div>
+        <div class="caption"><span class="num">MVP · 03</span><span class="desc">All campaigns at a glance.</span></div>
+      </div>
+      <div class="figure col-span-4">
+        <div class="frame ratio-9x16"><span class="ph">04 · Wallet &amp; top-up</span></div>
+        <div class="caption"><span class="num">MVP · 04</span><span class="desc">Money flow.</span></div>
+      </div>
+      <div class="figure col-span-4">
+        <div class="frame ratio-9x16"><span class="ph">05 · Unified dashboard</span></div>
+        <div class="caption"><span class="num">MVP · 05</span><span class="desc">One place for results.</span></div>
+      </div>
+      <div class="figure col-span-4">
+        <div class="frame ratio-9x16"><span class="ph">06 · Profile settings</span></div>
+        <div class="caption"><span class="num">MVP · 06</span><span class="desc">Account &amp; access.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 5 · PROCESS ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="label t-caption">05 · Process</div>
+      <h2 class="t-h1 title">No PM. I led the <em>product direction</em>.</h2>
+    </div>
+
+    <div class="text-block">
+      <p class="t-mono">Team</p>
+      <div class="body">
+        <p class="t-body measure">
+          There was no product manager. I led the product direction and aligned the team — <b>2 designers</b>, an <b>architect</b>, and <b>engineering</b>.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top: var(--s-6);">
+      <div class="figure col-span-12">
+        <div class="frame ratio-21x9">
+          <span class="ph">Team diagram · roles &amp; rituals</span>
+        </div>
+        <div class="caption">
+          <span class="num">FIG 04</span>
+          <span class="desc">How we worked, week to week.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 6 · KEY DECISION — CAMPAIGN CREATION ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="label t-caption">06 · Key decision</div>
+      <h2 class="t-h1 title">Campaign creation, <em>step by step</em>.</h2>
+    </div>
+
+    <div class="text-block" style="margin-bottom: var(--s-5);">
+      <p class="t-mono">Shift</p>
+      <div class="body">
+        <p class="t-lead measure" style="color:var(--ink);">
+          We redesigned campaign creation from a single-page desktop flow into a step-by-step mobile experience — <em>one action per screen</em>, reduced cognitive load.
+        </p>
+      </div>
+    </div>
+
+    <!-- horizontal step progression -->
+    <div class="grid">
+      <div class="figure col-span-3">
+        <div class="frame ratio-9x16"><span class="ph">Step 01 · Goal</span></div>
+        <div class="caption"><span class="num">CC · 01</span><span class="desc">Pick what success looks like.</span></div>
+      </div>
+      <div class="figure col-span-3">
+        <div class="frame ratio-9x16"><span class="ph">Step 02 · Audience</span></div>
+        <div class="caption"><span class="num">CC · 02</span><span class="desc">Who you’re reaching.</span></div>
+      </div>
+      <div class="figure col-span-3">
+        <div class="frame ratio-9x16"><span class="ph">Step 03 · Creative</span></div>
+        <div class="caption"><span class="num">CC · 03</span><span class="desc">Headline, image, link.</span></div>
+      </div>
+      <div class="figure col-span-3">
+        <div class="frame ratio-9x16"><span class="ph">Step 04 · Budget</span></div>
+        <div class="caption"><span class="num">CC · 04</span><span class="desc">Cap and pace.</span></div>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top: var(--s-4);">
+      <div class="figure col-span-12">
+        <div class="frame ratio-21x9 tinted sky"><span class="ph">Full creation flow · overview</span></div>
+        <div class="caption"><span class="num">CC · 05</span><span class="desc">The whole flow, end to end.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 7 · KEY DECISION — UNIFIED DASHBOARD ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="label t-caption">07 · Key decision</div>
+      <h2 class="t-h1 title">A modular, <em>unified</em> dashboard.</h2>
+    </div>
+
+    <div class="text-block" style="margin-bottom: var(--s-5);">
+      <p class="t-mono">Why</p>
+      <div class="body">
+        <p class="t-body measure">
+          One dashboard for all campaign types — <b>consistent structure</b>, <b>flexible blocks</b>, reduced complexity.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="figure col-span-12">
+        <div class="frame ratio-16x9 tinted sky"><span class="ph">Dashboard · hero state</span></div>
+        <div class="caption"><span class="num">UD · 01</span><span class="desc">Hero view — modules in default arrangement.</span></div>
+      </div>
+      <div class="figure col-span-6">
+        <div class="frame ratio-4x3"><span class="ph">Module · Performance</span></div>
+        <div class="caption"><span class="num">UD · 02</span><span class="desc">Same shape, every campaign type.</span></div>
+      </div>
+      <div class="figure col-span-6">
+        <div class="frame ratio-4x3"><span class="ph">Module · Audience</span></div>
+        <div class="caption"><span class="num">UD · 03</span><span class="desc">Same shape, every campaign type.</span></div>
+      </div>
+      <div class="figure col-span-4">
+        <div class="frame ratio-3x4"><span class="ph">Module · Spend</span></div>
+        <div class="caption"><span class="num">UD · 04</span><span class="desc">Block-level detail.</span></div>
+      </div>
+      <div class="figure col-span-4">
+        <div class="frame ratio-3x4"><span class="ph">Module · Status</span></div>
+        <div class="caption"><span class="num">UD · 05</span><span class="desc">Block-level detail.</span></div>
+      </div>
+      <div class="figure col-span-4">
+        <div class="frame ratio-3x4"><span class="ph">Module · Alerts</span></div>
+        <div class="caption"><span class="num">UD · 06</span><span class="desc">Block-level detail.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 8 · UX RESEARCH ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="label t-caption">08 · UX research</div>
+      <h2 class="t-h1 title">Tested, listened, <em>tightened</em>.</h2>
+    </div>
+
+    <div class="grid">
+      <div class="figure col-span-4">
+        <div class="frame ratio-4x3 tinted sage">
+          <span class="ph">Worked · 7/7 key tasks</span>
+        </div>
+        <div class="caption"><span class="num">UXR · 01</span><span class="desc">All 7 testers completed core tasks; navigation read as intuitive.</span></div>
+      </div>
+      <div class="figure col-span-4">
+        <div class="frame ratio-4x3 tinted blush">
+          <span class="ph">Issues · copy &amp; patterns</span>
+        </div>
+        <div class="caption"><span class="num">UXR · 02</span><span class="desc">Confusing copy and a few inconsistent interaction patterns.</span></div>
+      </div>
+      <div class="figure col-span-4">
+        <div class="frame ratio-4x3 tinted sky">
+          <span class="ph">Actions · refined components</span>
+        </div>
+        <div class="caption"><span class="num">UXR · 03</span><span class="desc">Rewrote copy, refined components, retested.</span></div>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top: var(--s-4);">
+      <div class="figure col-span-12">
+        <div class="frame ratio-21x9"><span class="ph">Annotated screens · before / after</span></div>
+        <div class="caption"><span class="num">UXR · 04</span><span class="desc">Notes from testing rounds, side-by-side.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 9 · RESULTS (typography-first) ============== -->
 <section class="section tight">
   <div class="wrap">
+    <div class="section-head">
+      <div class="label t-caption">09 · Results</div>
+      <h2 class="t-h1 title">Four months <em>after launch</em>.</h2>
+    </div>
+
     <div class="results">
       <div class="result">
         <div class="num">120K</div>
-        <div class="lbl">Users reached in 4 months after launch</div>
+        <div class="lbl">Monthly active users.</div>
+      </div>
+      <div class="result">
+        <div class="num">4.5<em>+</em></div>
+        <div class="lbl">App-store rating · iOS &amp; Android combined.</div>
+      </div>
+      <div class="result">
+        <div class="num">23<em>%</em></div>
+        <div class="lbl">SMBs using the app daily.</div>
+      </div>
+      <div class="result">
+        <div class="num"><em>7</em>mo</div>
+        <div class="lbl">From kickoff to public launch.</div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ============== NEXT NAV ============== -->
 <section class="section tight">
   <div class="wrap">
     <div class="next-nav">
       <div class="label t-caption">Next case</div>
       <a href="yandex-business.html" class="to">
-        <span>Unified ad creation</span>
+        <span>Unified ad creation in <em>Yandex Business</em></span>
         <span class="arrow">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path d="M2 12 L12 2 M4 2 H12 V10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -107,6 +462,7 @@
 
 </main>
 
+<!-- ============== FOOTER ============== -->
 <footer class="ft">
   <div class="wrap">
     <div>© 2026 · Kate Babenko · Product Designer</div>
@@ -122,6 +478,34 @@
   const nav = document.getElementById('nav');
   const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 6);
   document.addEventListener('scroll', onScroll, { passive: true });
+
+
+</script>
+
+<script>
+  // Carousel dot indicators (mobile)
+  document.querySelectorAll('.carousel-dots').forEach(dotsEl => {
+    const target = document.querySelector(dotsEl.dataset.for);
+    if (!target) return;
+    const dots = [...dotsEl.querySelectorAll('.dot')];
+    const update = () => {
+      const slides = [...target.children];
+      const cx = target.scrollLeft + target.clientWidth / 2;
+      let active = 0, best = Infinity;
+      slides.forEach((s, i) => {
+        const c = s.offsetLeft + s.offsetWidth / 2;
+        const d = Math.abs(c - cx);
+        if (d < best) { best = d; active = i; }
+      });
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === active));
+    };
+    target.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+    dots.forEach((d, i) => d.addEventListener('click', () => {
+      const slide = target.children[i];
+      if (slide) target.scrollTo({ left: slide.offsetLeft - (target.clientWidth - slide.offsetWidth) / 2, behavior: 'smooth' });
+    }));
+    update();
+  });
 </script>
 
 </body>

@@ -293,6 +293,340 @@ header.nav .wrap {
   padding: var(--s-4);
 }
 
+/* ---------- COVER HERO (full-bleed) ---------- */
+.cover-hero {
+  position: relative;
+  background: var(--sky);
+  border-radius: 0;
+  overflow: hidden;
+  view-transition-name: case-cover;
+}
+.cover-hero.tint-sky   { background: var(--sky); }
+.cover-hero.tint-sage  { background: var(--sage); }
+.cover-hero.tint-sand  { background: var(--sand); }
+.cover-hero.tint-lilac { background: var(--lilac); }
+.cover-hero.tint-blush { background: var(--blush); }
+.cover-hero.tint-deep-sage { background: oklch(0.42 0.06 150); color: oklch(0.96 0.012 90); }
+.cover-hero.tint-deep-sage .cover-meta,
+.cover-hero.tint-deep-sage .cover-eyebrow,
+.cover-hero.tint-deep-sage .cover-desc { color: oklch(0.86 0.020 90); }
+
+.cover-hero .cover-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(32px, 4vw, 80px);
+  align-items: center;
+  min-height: 100vh;
+  height: 100vh;
+  max-height: 900px;
+  padding-top: clamp(80px, 10vh, 120px);
+  padding-bottom: clamp(48px, 6vh, 80px);
+}
+.cover-hero .cover-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+.cover-hero .cover-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: oklch(0.32 0.04 150);
+  flex-wrap: wrap;
+}
+.cover-hero .cover-meta .pip {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: currentColor; display: inline-block; opacity: .55;
+}
+.cover-hero .cover-eyebrow {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.25rem, 1.7vw, 1.5rem);
+  color: oklch(0.32 0.04 150);
+  margin: 0;
+}
+.cover-hero h1.cover-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.75rem, 5.6vw, 5.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin: 0;
+  color: oklch(0.18 0.04 155);
+  max-width: 14ch;
+}
+.cover-hero h1.cover-title em { font-style: italic; color: oklch(0.32 0.05 150); font-weight: 300; }
+.cover-hero .cover-desc {
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  line-height: 1.55;
+  color: oklch(0.30 0.03 150);
+  max-width: 44ch;
+  margin: 0;
+}
+.cover-hero .cover-role-row {
+  display: flex; align-items: center; gap: var(--s-2);
+  margin-top: var(--s-3);
+  font-family: var(--font-mono);
+  font-size: var(--t-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: oklch(0.32 0.04 150);
+}
+.cover-hero .cover-role-row .pip {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: currentColor; display: inline-block; opacity: .55;
+}
+
+/* visual zone — layered UI composition */
+.cover-hero .cover-visual {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+}
+.cover-hero .stack {
+  position: absolute; inset: 0;
+}
+.cover-hero .ui-card {
+  position: absolute;
+  border-radius: 24px;
+  background: var(--bg-elev);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.6) inset,
+    0 30px 60px -20px rgba(20, 30, 25, .25),
+    0 8px 20px -8px rgba(20, 30, 25, .18);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, white 60%, transparent);
+}
+.cover-hero .ui-card .ph {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--t-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 65%, transparent);
+  background:
+    repeating-linear-gradient(135deg, transparent 0 10px, color-mix(in srgb, var(--ink) 5%, transparent) 10px 11px);
+}
+.cover-hero .ui-card img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+/* phone-shaped card */
+.cover-hero .ui-card.phone {
+  aspect-ratio: 9 / 19.5;
+  border-radius: 36px;
+  border: 1px solid color-mix(in srgb, white 70%, transparent);
+}
+
+@media (max-width: 960px) {
+  .cover-hero .cover-inner {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    height: auto;
+    max-height: none;
+    padding-top: var(--s-7);
+    padding-bottom: var(--s-6);
+  }
+  .cover-hero .cover-visual { aspect-ratio: 4 / 3; height: auto; min-height: 0; }
+}
+
+/* =========================================================================
+   EDITORIAL HERO (reusable case-study cover)
+   Centered typography over a soft radial-gradient field, with a row of
+   product screens beneath. On mobile the screens become a snap carousel.
+   ========================================================================= */
+.editorial-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding-top: clamp(80px, 11vh, 140px);
+  padding-bottom: clamp(40px, 6vh, 72px);
+  background:
+    /* central blue glow — soft, wide, sits behind the screens */
+    radial-gradient(85% 65% at 50% 70%, rgba(100, 129, 209, 0.85) 0%, rgba(100, 129, 209, 0.35) 45%, rgba(100, 129, 209, 0) 78%),
+    /* base linear field: pale blue → warm off-white */
+    linear-gradient(180deg, #D0E3FF 0%, #F6F4EE 100%);
+  view-transition-name: case-cover;
+}
+.editorial-hero.tint-sage {
+  background:
+    radial-gradient(120% 80% at 50% 35%, oklch(0.94 0.04 150 / 0.85) 0%, transparent 60%),
+    radial-gradient(140% 100% at 50% 110%, oklch(0.78 0.10 150 / 0.55) 0%, transparent 65%),
+    linear-gradient(180deg, oklch(0.96 0.02 145) 0%, oklch(0.86 0.07 150) 100%);
+}
+.editorial-hero.tint-sand {
+  background:
+    radial-gradient(120% 80% at 50% 35%, oklch(0.95 0.04 80 / 0.85) 0%, transparent 60%),
+    radial-gradient(140% 100% at 50% 110%, oklch(0.84 0.08 80 / 0.55) 0%, transparent 65%),
+    linear-gradient(180deg, oklch(0.97 0.02 80) 0%, oklch(0.88 0.07 80) 100%);
+}
+.editorial-hero.tint-blush {
+  background:
+    radial-gradient(120% 80% at 50% 35%, oklch(0.95 0.04 30 / 0.85) 0%, transparent 60%),
+    radial-gradient(140% 100% at 50% 110%, oklch(0.82 0.08 30 / 0.55) 0%, transparent 65%),
+    linear-gradient(180deg, oklch(0.97 0.02 30) 0%, oklch(0.87 0.07 30) 100%);
+}
+.editorial-hero.tint-lilac {
+  background:
+    radial-gradient(120% 80% at 50% 35%, oklch(0.94 0.04 305 / 0.85) 0%, transparent 60%),
+    radial-gradient(140% 100% at 50% 110%, oklch(0.78 0.09 305 / 0.55) 0%, transparent 65%),
+    linear-gradient(180deg, oklch(0.96 0.02 305) 0%, oklch(0.85 0.07 305) 100%);
+}
+.editorial-hero .eh-blur {
+  position: absolute;
+  left: 50%;
+  top: 58%;
+  transform: translate(-50%, -50%);
+  width: clamp(520px, 62vw, 880px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%,
+    oklch(0.72 0.14 260 / 0.55) 0%,
+    oklch(0.78 0.10 250 / 0.30) 38%,
+    oklch(0.85 0.06 240 / 0.10) 65%,
+    transparent 80%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+.editorial-hero .eh-inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(32px, 4.5vh, 56px);
+  text-align: center;
+}
+.editorial-hero .eh-meta {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: oklch(0.30 0.04 255);
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.editorial-hero.tint-sage  .eh-meta { color: oklch(0.30 0.04 150); }
+.editorial-hero.tint-sand  .eh-meta { color: oklch(0.30 0.04 80); }
+.editorial-hero.tint-blush .eh-meta { color: oklch(0.30 0.04 30); }
+.editorial-hero.tint-lilac .eh-meta { color: oklch(0.30 0.04 305); }
+.editorial-hero .eh-meta .pip {
+  width: 3px; height: 3px; border-radius: 50%;
+  background: currentColor; opacity: .55;
+  display: inline-block;
+}
+.editorial-hero h1.eh-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 5.4vw, 5rem);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  margin: 0;
+  max-width: 18ch;
+  color: oklch(0.18 0.03 255);
+  text-wrap: balance;
+}
+.editorial-hero.tint-sage  h1.eh-title { color: oklch(0.20 0.03 150); }
+.editorial-hero.tint-sand  h1.eh-title { color: oklch(0.20 0.03 80); }
+.editorial-hero.tint-blush h1.eh-title { color: oklch(0.20 0.03 30); }
+.editorial-hero.tint-lilac h1.eh-title { color: oklch(0.20 0.03 305); }
+.editorial-hero h1.eh-title em {
+  font-style: italic;
+  color: inherit;
+  font-weight: 400;
+}
+.editorial-hero .eh-desc {
+  font-size: clamp(0.95rem, 1.05vw, 1.0625rem);
+  line-height: 1.55;
+  color: oklch(0.30 0.03 255);
+  max-width: 56ch;
+  margin: 0 auto;
+}
+.editorial-hero.tint-sage  .eh-desc { color: oklch(0.30 0.03 150); }
+.editorial-hero.tint-sand  .eh-desc { color: oklch(0.30 0.03 80); }
+.editorial-hero.tint-blush .eh-desc { color: oklch(0.30 0.03 30); }
+.editorial-hero.tint-lilac .eh-desc { color: oklch(0.30 0.03 305); }
+
+/* row of product screens */
+.editorial-hero .eh-screens {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(16px, 1.6vw, 28px);
+  align-items: end;
+  justify-items: center;
+  padding: 0 clamp(0px, 2vw, 24px);
+}
+.editorial-hero .eh-phone {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background: transparent;
+  border: 0;
+  overflow: visible;
+  box-shadow: none;
+  transform: none !important;
+  animation: none !important;
+}
+.editorial-hero .eh-phone img {
+  width: 100%;
+  height: auto;
+  max-height: clamp(420px, 46vw, 640px);
+  object-fit: contain;
+  object-position: bottom center;
+  display: block;
+}
+/* slide-1 has a wider canvas (map overflows the device frame),
+   so its source aspect ratio is wider. Scale it up so the *device body*
+   matches the width of the other 3 screens. */
+.editorial-hero .eh-phone.is-wide img {
+  width: 132%;
+  max-width: 132%;
+}
+
+/* mobile: snap carousel */
+@media (max-width: 720px) {
+  header.nav .brand { display: none; }
+  .editorial-hero .eh-screens {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 12vw;
+    gap: 14px;
+    padding: 8px 12vw 24px;
+    margin: 0 calc(-1 * var(--gutter));
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .editorial-hero .eh-screens::-webkit-scrollbar { display: none; }
+  .editorial-hero .eh-phone {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+  }
+  .editorial-hero .eh-phone img {
+    height: 70vh;
+    max-height: 520px;
+  }
+}
+
 /* fact strip under hero */
 .case-facts {
   display: grid;
@@ -318,8 +652,9 @@ section.section + section.section { padding-top: 0; }
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
   gap: var(--col-gap);
-  margin-bottom: var(--s-5);
+  margin-bottom: 16px;
   align-items: baseline;
+  row-gap: 24px;
 }
 .section-head .label { color: var(--ink-3); }
 .section-head .title em { font-style: italic; color: var(--ink-2); }
@@ -611,5 +946,133 @@ footer.ft a:hover { color: var(--ink); }
   ::view-transition-new(case-cover) {
     animation-duration: 460ms;
     animation-timing-function: cubic-bezier(.2, .7, .2, 1);
+  }
+}
+
+
+/* ============== STAT SPHERES (Context section) ============== */
+.stat-spheres {
+  margin: 24px 0 0 auto;
+  width: 100%;
+  display: block;
+  text-align: right;
+}
+.stat-spheres .spheres-svg {
+  display: block;
+  margin-left: auto;
+  width: min(100%, 1000px);
+  height: auto;
+}
+.stat-spheres .spheres-mobile { display: none; }
+@media (max-width: 720px) {
+  .stat-spheres { text-align: center; margin: 24px auto 0; }
+  .stat-spheres .spheres-desktop { display: none; }
+  .stat-spheres .spheres-mobile {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+  }
+}
+
+
+/* Problem section: title left, label top-right */
+.section-head.section-head--reverse {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+}
+.section-head.section-head--reverse .label {
+  text-align: right;
+}
+
+/* Old screens — 3 phones, no frame, aligned with content grid */
+.old-screens {
+  margin-top: clamp(48px, 7vw, 96px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--col-gap);
+  justify-items: stretch;
+  align-items: start;
+}
+.old-screens .old-phone {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.old-screens .old-phone img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+}
+@media (max-width: 720px) {
+  .old-screens { grid-template-columns: 1fr; }
+}
+
+
+/* ===== Mobile carousel for old screens (Problem section) ===== */
+@media (max-width: 720px) {
+  .old-screens {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0;
+    gap: 0;
+    padding: 8px 0 24px;
+    margin: clamp(32px, 5vw, 56px) calc(-1 * var(--gutter, 24px)) 0;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  .old-screens::-webkit-scrollbar { display: none; }
+  .old-screens .old-phone {
+    flex: 0 0 100%;
+    width: 100%;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    padding: 0 var(--gutter, 24px);
+  }
+  .old-screens .old-phone img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* smooth scroll for hero too */
+  .editorial-hero .eh-screens { scroll-behavior: smooth; }
+}
+
+/* ===== Page-dot indicator (mobile carousels) ===== */
+.carousel-dots {
+  display: none;
+}
+@media (max-width: 720px) {
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: -8px;
+    padding-bottom: 8px;
+  }
+  .carousel-dots .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.45);
+    transition: background .25s ease, transform .25s ease;
+  }
+  .carousel-dots .dot.is-active {
+    background: rgba(255, 255, 255, 0.95);
+    transform: scale(1.15);
+  }
+  /* dark dots when on light background */
+  .old-screens + .carousel-dots .dot {
+    background: rgba(0, 0, 0, 0.18);
+  }
+  .old-screens + .carousel-dots .dot.is-active {
+    background: rgba(0, 0, 0, 0.7);
   }
 }
