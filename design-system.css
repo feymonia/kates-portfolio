@@ -1,0 +1,332 @@
+/* ============================================================
+   DESIGN SYSTEM — single source of truth for color and type.
+   Nothing in this file describes a specific section of the site;
+   components in styles.css consume these tokens only.
+
+   Source: the Figma UI kit, section "UI Kit" (node 177:37824).
+   It defines four text styles and three tag states, and that is the
+   whole vocabulary — a component that needs a fifth style is a
+   conversation about the kit, not a local override.
+
+   Usage:
+     colour  →  color: var(--color-text-secondary);
+     type    →  the .type-* utility classes, or the raw
+                --font-size-* / --line-height-* / --tracking-* tokens
+                inside a component rule.
+
+   Optical scaling: the serif styles are drawn on the kit's 1440px
+   artboard and shrink with the viewport below it. Set --type-scale on
+   a container to scale every .type-* rule inside it; it defaults to 1.
+   ============================================================ */
+
+:root {
+  /* ---------- COLOR ----------
+     Two fixed anchors — the page background and the heading tone. The
+     warm neutral axis runs between them; the Direct blues are the one
+     hue allowed off that axis, and they belong to the product. */
+
+  /* Background */
+  --color-background-primary: #f3efea; /* locked */
+
+  /* Surfaces */
+  --color-surface-primary: #ffffff; /* plates: cards, chips — locked */
+  --color-surface-dark: #3a2f2f;
+
+  /* Text */
+  --color-text-primary: #4d3f3f; /* headings, primary copy — locked */
+  /* The kit draws this at #998E80. Taken back to the darker tone on
+     2026-10-04: at #998E80 it read 2.81:1 on the page and failed the
+     body threshold; this clears it at 4.48:1. */
+  --color-text-secondary: #776b6a; /* body, navigation, metadata */
+  /* The kit collapsed secondary and muted into one tone. The alias is
+     kept so a future kit can part them again without touching a
+     component. */
+  --color-text-muted: var(--color-text-secondary);
+  --color-text-on-dark: #f6f2ed;
+
+  /* Borders — every rule, underline and border is the ink at 20%, so the
+     line takes the colour of whatever it lies on */
+  --color-border-default: rgba(77, 63, 63, 0.2);
+
+  /* Accent — active states, links, small details */
+  --color-accent-primary: #5f5150;
+
+  /* Direct blues. Two of them: the light pair carries a case metric,
+     the deep one carries the product itself and appears once, on the
+     "currently working at" tag. */
+  --color-accent-brand: #498bff;
+  --color-accent-brand-surface: #e1ebfe;
+  --color-accent-brand-border: #c7dbff;
+  --color-accent-brand-deep: #1247a5;
+  /* A fourth blue, one shade brighter, and the only one that carries
+     text on the page background — the value in the meta line. */
+  --color-accent-brand-bright: #3782ff;
+  /* The one colour on the site that belongs to a single hero slide. */
+  --color-accent-pink: #ed4a99;
+
+  /* The meta line's own two greys: lighter than body text because it is
+     a caption, and lighter still on the rules that only separate. */
+  --color-text-meta: #a89c8f;
+  --color-text-meta-rule: #d2c8bb;
+
+  /* Status */
+  --color-status-positive: #14b61d;
+
+  /* Slider dots — Figma component "Frame 2136139698" (18:46588), two
+     variants. Both carry the same white dots; only the pill changes, and
+     it changes to stay legible on what it sits on. Three dots make the
+     pill 50 × 24: 12 + 6 + 4 + 6 + 4 + 6 + 12. */
+  --color-control-pill-on-light: rgba(0, 0, 0, 0.15); /* Variant2 */
+  --color-control-pill-on-dark: rgba(255, 255, 255, 0.2); /* Default */
+  /* A third pill, for dots that sit on the page rather than on imagery —
+     the hero's (Figma component "Frame 2136139699"). */
+  --color-control-pill-on-page: rgba(153, 142, 128, 0.6);
+  --color-control-dot: rgba(255, 255, 255, 0.5);
+  --color-control-dot-active: #ffffff;
+  --size-control-dot: 6px;
+  --gap-control-dot: 4px;
+  --padding-control-pill: 9px 12px;
+  --size-control-pill-height: 24px;
+  /* 40 above the stage floor at the drawn size, scaling with the stage */
+  --offset-control-pill: clamp(12px, 5.33%, 40px);
+
+  /* The stage cursor — Figma frame 172:19127. It used to carry a cool
+     near-black of its own; since 2026-10-04 it is the heading tone, so
+     the one control that rides over imagery is still written in the
+     site's own ink. */
+  --color-control-cursor: var(--color-text-primary);
+  --color-control-cursor-icon: #ffffff;
+  --size-control-cursor: 64px;
+  --size-control-cursor-arrow-w: 20px;
+  --size-control-cursor-arrow-h: 14px;
+
+  /* Media surfaces — backdrops behind screenshots and avatars.
+     Part of the imagery, not of the UI palette; listed here so no
+     component carries a raw hex value. */
+  --color-stage: #f0ebe4;
+  --color-stage-soft: #f6f2ed;
+  /* Overdraft's own plate — Figma 217:47736, all four of its frames */
+  --color-stage-overdraft: #f3d9c6;
+  /* One radius for every desktop screen set into a stage — the videos
+     here, the frames in Figma. A phone takes the smaller one. */
+  --radius-stage-media: 20px;
+  --radius-stage-media-mobile: 12px;
+  --color-stage-loyalty: #d7e5ff; /* Loyalty backdrop, from its four frames */
+  /* The app's own plate — Figma 230:41143 and the frames on it */
+  --color-stage-app: #eee6dc;
+  /* Simple campaign's plate — Figma 213:38031. A dusty rose-grey, dark
+     enough to hold the edge of a recording that fades from pale blue to
+     cream. Not a tint of any other plate on the page. */
+  --color-stage-simple: #ded1d1;
+  /* The two cases that were not built at Yandex bring their own plates —
+     Figma 218:51164 */
+  --color-stage-rental: #bda6f0;
+  --color-stage-doubleb: #55926f;
+  /* The studio's pill, Tag State4. A surface, like the plates above */
+  --color-studio-mark: #4d3f3f;
+  /* A note written over a frame: its ink, and the hand it is written in.
+     A third family, and the only one outside the two the kit names — it
+     is part of the imagery, the way a stage colour is, not a UI style. */
+  --color-ink-annotation: #768cb7;
+  /* The plate a loose screenshot floats on. The shadow under it is not a
+     token: that screenshot carries its own, baked into the file. */
+  --color-stage-screenshot: #eff2f7;
+  --font-family-hand: "Caveat", "Segoe Script", cursive;
+  /* The portrait is a cut-out and stands on the page with nothing behind
+     it. Only its 40px copy in the bar keeps a plate. */
+  --gradient-avatar-plate-nav: linear-gradient(
+    180deg,
+    rgba(215, 229, 255, 0.2) 0%,
+    rgba(0, 60, 171, 0.2) 100%
+  );
+  --gradient-stage-placeholder: linear-gradient(
+    135deg,
+    #ede7df 0%,
+    #f3efea 45%,
+    #f8f5f1 75%,
+    #fdfbf9 100%
+  );
+
+  /* ---------- TYPEFACES ---------- */
+
+  /* Instrument Serif — narrative: hero statement, section and case titles */
+  --font-family-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+
+  /* Inter — information: body, navigation, tags, metadata, UI labels */
+  --font-family-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+
+  /* ---------- FONT WEIGHTS ---------- */
+
+  --font-weight-regular: 400; /* serif only — Instrument Serif has one weight */
+  --font-weight-medium: 500; /* every sans style in the kit is Medium */
+
+  /* ---------- TYPE SCALE ----------
+     Four styles, named as the kit names them. Two serif, two sans;
+     nothing in between, and no third size of either. */
+
+  --type-scale: 1; /* multiplier, overridden on optically scaled blocks */
+
+  /* H1 — hero statement, section titles */
+  --font-size-h1: 60px;
+  --line-height-h1: 60px;
+  --tracking-h1: -0.025em;
+
+  /* H2 — in-page statements, one step under H1 */
+  --font-size-h2: 48px;
+  --line-height-h2: 56px;
+  --tracking-h2: -0.025em;
+
+  /* Body — 18/30, every running sentence on the page */
+  --font-size-body: 18px;
+  --line-height-body: 30px;
+  --tracking-body: -0.01em;
+
+  /* Label — 14/16, navigation, tags, controls */
+  --font-size-label: 14px;
+  --line-height-label: 16px;
+  --tracking-label: -0.01em;
+
+  /* Meta — 12/16 set wide and upper-case. The one style that opens up
+     instead of tightening, because it is read as a row of facts rather
+     than a sentence. The kit uses it in exactly one place: the line
+     above the hero statement (200:94706). */
+  --font-size-meta: 12px;
+  --line-height-meta: 16px;
+  --tracking-meta: 0.1em; /* 1.2px on 12 */
+
+  /* ---------- SEMANTIC TYPE ROLES ----------
+     The parts of a project card point at styles from the scale above
+     instead of carrying their own numbers. To restyle every card, move
+     the role to another style here — never edit a component. */
+
+  /* Project card title — 44/44, its own size.
+     It used to be H2. On 2026-09-30 the card (177:26342) moved to 44 set
+     solid while the kit's H2 style stayed at 48/56, so the two parted
+     and the role has to carry its own numbers until they are one again.
+     The tracking is the same −2.5% every serif style uses. */
+  --font-size-project-title: 44px;
+  --line-height-project-title: 44px;
+  --tracking-project-title: -0.025em;
+
+  /* Project card description — Body */
+  --font-size-project-description: var(--font-size-body);
+  --line-height-project-description: var(--line-height-body);
+  --tracking-project-description: var(--tracking-body);
+
+  /* Wordmark — the name in the bar. Instrument Serif italic at a size the
+     scale does not carry (200:94692); the 40 line-height is the height of
+     the portrait it stands beside. */
+  --font-size-brand: 18px;
+  --line-height-brand: 40px;
+
+  /* Project tag — Label */
+  --font-size-project-tag: var(--font-size-label);
+  --line-height-project-tag: var(--line-height-label);
+  --tracking-project-tag: var(--tracking-label);
+
+  /* ---------- LAYOUT ----------
+     The kit is drawn on a 1440 artboard: sections run 1376 wide inside
+     a 32px gutter, and the hero column is narrower than the sections. */
+
+  --width-content: 1376px;
+  --width-hero: 1292px;
+  --width-hero-title: 856px;
+  --width-hero-subtitle: 830px;
+  --size-hero-portrait: 280px;
+  --page-gutter: clamp(20px, 2.22vw, 32px);
+
+  /* ---------- SPACING ----------
+     The project card's text block, from the Figma frame. One set of
+     values for every card; nothing here is tuned per project. */
+
+  --space-card-text-inset: 0.5rem; /* 8 — text block against the card */
+  --space-card-row-gap: 0.5rem; /* 8 — one gap for the whole caption column */
+  --space-card-tags-title: var(--space-card-row-gap);
+  --space-card-title-description: var(--space-card-row-gap);
+
+  /* Tags sit closer in the hero than on a card — 4 against 6. Two tokens,
+     because it is two decisions, not one value used twice. */
+  --space-meta-gap: 0.875rem; /* 14 — between segments of the meta line */
+  --space-card-tag-gap: 0.375rem; /* 6 — project card */
+
+  /* The card's media area — Figma 177:26317 */
+  --ratio-card-stage: 1344 / 750;
+
+  /* ---------- COMPOSITE TYPE TOKENS ----------
+     `font` shorthand, for unscaled contexts. Letter spacing is not
+     part of the shorthand — pair with the matching --tracking-* token. */
+
+  --type-h1: var(--font-weight-regular) var(--font-size-h1) /
+    var(--line-height-h1) var(--font-family-serif);
+  --type-h2: var(--font-weight-regular) var(--font-size-h2) /
+    var(--line-height-h2) var(--font-family-serif);
+  --type-body: var(--font-weight-medium) var(--font-size-body) /
+    var(--line-height-body) var(--font-family-sans);
+  --type-label: var(--font-weight-medium) var(--font-size-label) /
+    var(--line-height-label) var(--font-family-sans);
+  --type-meta: var(--font-weight-medium) var(--font-size-meta) /
+    var(--line-height-meta) var(--font-family-sans);
+}
+
+/* ---------- TYPE UTILITIES ----------
+   Scale-aware versions of the tokens above. These are the styles
+   components should reach for; they resolve --type-scale per element. */
+
+.type-h1,
+.type-h2 {
+  font-family: var(--font-family-serif);
+  font-weight: var(--font-weight-regular);
+  font-style: normal;
+}
+
+.type-body,
+.type-label,
+.type-meta {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+}
+
+.type-h1 {
+  font-size: calc(var(--font-size-h1) * var(--type-scale));
+  line-height: calc(var(--line-height-h1) * var(--type-scale));
+  letter-spacing: var(--tracking-h1);
+}
+
+.type-h2 {
+  font-size: calc(var(--font-size-h2) * var(--type-scale));
+  line-height: calc(var(--line-height-h2) * var(--type-scale));
+  letter-spacing: var(--tracking-h2);
+}
+
+/* Body and label are read, not looked at — they keep their nominal size
+   at every width and never take --type-scale. */
+.type-body {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--tracking-body);
+}
+
+.type-label {
+  font-size: var(--font-size-label);
+  line-height: var(--line-height-label);
+  letter-spacing: var(--tracking-label);
+}
+
+.type-meta {
+  font-size: var(--font-size-meta);
+  line-height: var(--line-height-meta);
+  letter-spacing: var(--tracking-meta);
+  text-transform: uppercase;
+}
+
+/* Italic inside a serif headline keeps the size and line-height of
+   its surrounding text — only the style changes. */
+.type-h1 em,
+.type-h2 em {
+  font-family: var(--font-family-serif);
+  font-style: italic;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}

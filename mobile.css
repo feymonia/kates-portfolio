@@ -1,0 +1,457 @@
+/* ============================================================
+   Mobile — the phone layout of the portfolio
+
+   This file holds every rule that exists only on a phone, and nothing
+   else does. It is loaded after styles.css, which stays the source of
+   truth for colour, type, radius and effect: nothing here defines a token
+   or restates a value that is already set. Where a desktop rule is shared,
+   a rule below overrides only the property that has to differ — layout,
+   size, spacing, behaviour.
+
+   One breakpoint, 767px and under, matches the matchMedia in slider.js
+   and marquee.js. Nothing in this file applies above it.
+   No inline styles and no `!important`: the overrides win on specificity
+   and on coming later, and slider.js clears what it would otherwise leave
+   inline.
+
+   Sections, in page order:
+     1. Hero          the running meta line
+     2. Projects      the cases as a feed of pictures, no words
+     3. Contact       the portrait above the words
+   ============================================================ */
+
+@media (max-width: 767px) {
+  /* ——— 0. Header ———
+     Figma 465:107749: the bar is 56 tall and holds a 28px row — the
+     portrait at 24 with the name beside it, the way out, and the status
+     pill at 28 with 12px type. */
+  header.nav .wrap {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .brand {
+    gap: 8px;
+  }
+
+  .brand__avatar {
+    width: 24px;
+    height: 24px;
+  }
+
+  .brand__avatar img {
+    left: -1.3px;
+    top: -0.5px;
+    width: 27px;
+    height: 27px;
+  }
+
+  .brand__name {
+    display: inline;
+    font-size: 1rem;
+    line-height: 1.25rem;
+  }
+
+  .availability {
+    height: 28px;
+    padding: 0 12px;
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .pulse {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* On a phone the bar carries only home and the status: the way to the
+     CV lives in the contact block */
+  header.nav nav.links {
+    display: none;
+  }
+
+  /* ——— 1. Hero ——— */
+
+  /* The light is drawn 862 wide, which on a phone reaches past the right
+     edge of the screen and makes the whole page wider than the viewport:
+     the browser then shrinks everything to fit that width. Here it spans
+     the hero instead. Under a 500px blur the difference is invisible, and
+     its tail still runs down into the next section as on a desktop. */
+  .hero__glow {
+    left: 0;
+    width: 100%;
+    transform: none;
+  }
+
+  /* The meta line would wrap to three rows here, so it runs as one.
+     marquee.js builds the track and its copy only at this width. */
+
+  .hero__meta {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 0;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    /* The two tracks are far wider than the screen. Without this the row
+       reports that width upward and stretches the whole slide with it. */
+    contain: inline-size;
+    overflow: hidden;
+    white-space: nowrap;
+    /* Soft edges, so words enter and leave rather than being cut */
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 8%,
+      #000 92%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 8%,
+      #000 92%,
+      transparent
+    );
+  }
+
+  .hero__meta-track {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--space-meta-gap);
+    padding-right: var(--space-meta-gap);
+    animation: meta-run 28s linear infinite;
+  }
+
+  /* Each copy slides its own width left, and the next is already behind it */
+  @keyframes meta-run {
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  /* Asked for less motion: a wrapped, centred, still row again, and the
+     copy that only exists for the loop goes away */
+  @media (prefers-reduced-motion: reduce) {
+    .hero__meta {
+      flex-wrap: wrap;
+      justify-content: center;
+      overflow: visible;
+      white-space: normal;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+
+    .hero__meta-track {
+      display: contents;
+      animation: none;
+    }
+
+    .hero__meta-track--copy,
+    .hero__meta-rule--loop {
+      display: none;
+    }
+  }
+
+  /* The display at 36 / 40 and the line under it at 16 / 24, 8 apart,
+     the words held to 300 (Figma 465:107728) */
+  .hero__title {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  .hero__subtitle {
+    max-width: 300px;
+    margin-top: 8px;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  /* The dots sit 38 under the words (Figma 465:107743) */
+  .hero .slider__dots {
+    margin-top: 38px;
+  }
+
+  /* The start of the second block (Figma 465:107710 → 465:107810): the
+     rule, 12 down to «Selected projects» at 32 / 40, 24 down to the
+     first picture */
+  .projects-intro::before {
+    margin-bottom: 12px;
+  }
+
+  .projects-intro__title {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+
+  .projects-intro__title + .project-card {
+    margin-top: 1.5rem;
+  }
+
+  /* ——— 2. Projects ———
+     A carousel inside a plate shrinks every frame to a thumbnail. Here the
+     cards give way: no white plate, no stage, no dots, and each frame of a
+     case sits full width one under the other, tight to its own picture. A
+     frame keeps its own plate colour as a tile — several were drawn to be
+     cropped by it. slider.js does not position slides at this width. */
+
+  .project-card,
+  .project-card + .project-card,
+  .other-projects .project-card {
+    margin-top: 1rem; /* the one gap between pictures, 16, heading included */
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    gap: 1rem;
+  }
+
+  /* No words under the pictures: the feed is the pictures alone */
+  .project-card > .project-card__caption {
+    display: none;
+  }
+
+  /* The stage turns into a plain column */
+  .project-card .project-card__stage.slider {
+    --tile-bg: var(--color-stage);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* 16, the same as between cases */
+    aspect-ratio: auto;
+    overflow: visible;
+    border-radius: 0;
+    background: none;
+    container-type: normal;
+  }
+
+  /* Each case keeps the plate it has on a desktop — the same tokens. The
+     `.project-card` prefix matters: without it these lose to the default
+     above on specificity and every tile comes out the page's own beige. */
+  .project-card .project-card__stage--loyalty.slider {
+    --tile-bg: var(--color-stage-loyalty);
+  }
+
+  .project-card .project-card__stage--overdraft.slider {
+    --tile-bg: var(--color-stage-overdraft);
+  }
+
+  .project-card .project-card__stage--app.slider {
+    --tile-bg: var(--color-stage-app);
+  }
+
+  .project-card .project-card__stage--simple.slider {
+    --tile-bg: var(--color-stage-simple);
+  }
+
+  .project-card .slider__viewport {
+    display: contents;
+  }
+
+  .project-card .slider__dots,
+  .project-card .slider__cursor {
+    display: none;
+  }
+
+  /* One tile per frame */
+  .project-card .slide {
+    position: relative;
+    inset: auto;
+    display: block;
+    width: 100%;
+    transition: none;
+    will-change: auto;
+    overflow: hidden;
+    border-radius: 1rem;
+    background: var(--tile-bg);
+  }
+
+  /* Every picture and recording in a tile fills it. Their desktop rules
+     place them in cqw against a stage that no longer exists. */
+  .project-card .slide :is(.project-card__ui, .project-card__shot,
+      .overdraft-media, .simple-media, .app-media) {
+    position: static;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    transform: none;
+    object-fit: contain;
+  }
+
+  /* The recordings keep a corner of their own inside the tile: the phone
+     radius, smaller than the desktop one, the same on every screen */
+  .project-card .slide :is(.overdraft-media, .simple-media) {
+    border-radius: var(--radius-stage-media-mobile);
+  }
+
+  /* Every frame keeps a margin of plate around it, as on a desktop, where
+     no picture touches the stage's edge. The exceptions below are frames
+     the kit draws cut by the stage: where a cut runs, the plate margin is
+     dropped on that side so the tile's edge keeps cutting the picture. */
+  .project-card .slide,
+  .project-card__stage--rental,
+  .project-card__stage--doubleb {
+    padding: 0.75rem;
+  }
+
+  /* Phones hanging off the top and the bottom: plate at the sides only */
+  .project-card .slide:has(.overdraft-media--mobile),
+  .project-card .slide:has(.app-media--screens),
+  .project-card__stage--loyalty .slide:nth-child(2),
+  .project-card__stage--loyalty .slide:nth-child(3) {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* The pairs are cut along the bottom alone */
+  .project-card .slide:has(.app-media--pair) {
+    padding-bottom: 0;
+  }
+
+  /* Desktop screens drawn to run off the top: plate at the sides only, so
+     the gap beside them is the one every other frame has */
+  .project-card__stage--loyalty .slide:nth-child(1),
+  .project-card__stage--loyalty .slide:nth-child(4) {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* The photograph crops itself; the plate is part of the picture */
+  .project-card .slide:has(.app-media--hand) {
+    padding: 0;
+  }
+
+  /* Three exports carry a sliver of their own transparent margin at the
+     sides (0.6%, 0.9% and 2.8% of their width), which would add to the
+     plate's 12 and read as a wider gap. The padding gives that sliver
+     back: 12 less the margin at the width the picture ends up at, so the
+     visible gap is the same 12 everywhere. */
+  .project-card__stage--rental {
+    padding-left: calc(0.75rem - 0.006 * (100% - 1.5rem));
+    padding-right: calc(0.75rem - 0.0066 * (100% - 1.5rem));
+  }
+
+  .project-card__stage--doubleb {
+    padding-left: calc(0.75rem - 0.0088 * (100% - 1.5rem));
+    padding-right: calc(0.75rem - 0.0093 * (100% - 1.5rem));
+  }
+
+  .project-card__stage--loyalty .slide:nth-child(3) {
+    padding-left: calc(0.75rem - 0.0299 * (100% - 1.5rem));
+    padding-right: calc(0.75rem - 0.0299 * (100% - 1.5rem));
+  }
+
+  /* The loose "Before" screenshot and its label stay off the phone */
+  .project-card .slide:has(.project-card__shot) {
+    display: none;
+  }
+
+  /* "And other projects…" is one feed with the cases above it: no heading
+     and no section gap of its own, just the same 16 */
+  .other-projects {
+    padding-top: 0;
+  }
+
+  .other-projects__title {
+    display: none;
+  }
+
+  /* The handwritten aside points at a spot on a frame that is no longer
+     laid out the way it was drawn */
+  .project-card .stage-note--aside,
+  .project-card .stage-note__arrow {
+    display: none;
+  }
+
+  /* The photograph: the phone and the hand, cut from the big export as a
+     square, since the stage that used to crop it is gone */
+  .project-card .slide:has(.app-media--hand) {
+    aspect-ratio: 1 / 1;
+  }
+
+  .project-card .slide .app-media--hand {
+    position: absolute;
+    width: 200%;
+    max-width: none;
+    left: -60%;
+    top: -25%;
+  }
+
+  /* States stay stacked on the spot and cross-faded, in a box of their own
+     ratio now that nothing around them fixes the height */
+  .project-card .overdraft-states {
+    position: relative;
+    inset: auto;
+    aspect-ratio: 1440 / 1132;
+  }
+
+  .project-card .overdraft-states img {
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: none;
+  }
+
+  /* Rental and DoubleB are one frame on a plate each: the plate stays, as
+     a block, and the picture fills it */
+  .project-card__stage--rental,
+  .project-card__stage--doubleb {
+    aspect-ratio: auto;
+    border-radius: 1rem;
+  }
+
+  .project-card__stage--rental .other-media,
+  .project-card__stage--doubleb .other-media {
+    position: static;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* ——— 3. Contact ——— */
+
+  /* Figma 465:107662, the phone frame: one column, 24 from the last
+     picture, the portrait at 140 × 163, 24 down to the words, the display
+     at 48 / 56 and the body at 16 / 24, links one under another, and 48
+     from the last link to the footer rule, as on a desktop. */
+  .contact {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.5rem 0 3rem;
+  }
+
+  .contact__portrait img {
+    width: 140px;
+    height: 163px;
+  }
+
+  .contact__title {
+    font-size: 3rem;
+    line-height: 3.5rem;
+  }
+
+  .contact__lead {
+    margin-top: 0.125rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .contact__links {
+    flex-direction: column;
+    gap: 2rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  /* The footer keeps its one row and sits 24 from the bottom edge */
+  .footer {
+    padding-bottom: 1.5rem;
+  }
+
+  .footer__inner {
+    flex-wrap: nowrap;
+    gap: 1rem;
+  }
+}

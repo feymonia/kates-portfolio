@@ -1,0 +1,64 @@
+<!-- ============================================================
+     ProjectCard — canonical markup. Copy this, fill the slots, done.
+     Styles: styles.css, section "ProjectCard".
+     Figma: component "Property 1=Default" (node 16:2).
+
+     Slots to fill:
+       FRAMES        one .slide per image, in order. One frame → the card
+                     is static and shows no dots. Two or more → slider.js
+                     builds the dots and the stage cursor by itself, no
+                     extra markup: right half of the stage goes forward,
+                     left half back, and the arrow follows the pointer.
+       TAGS          any number of <li class="tag tag--case">. They wrap.
+       TITLE         wrap the words that should be italic in <em>.
+
+     No description: the Figma component hides it and no card on the page
+     carries one. The `.project-card__description` rule is still in
+     styles.css — add a <p> with that class under the title if a case ever
+     needs a sentence, and it will pick up the caption's 8px gap.
+
+     Stage variants — add to .project-card__stage:
+       (none)                      warm neutral backdrop, image cropped to fill
+       project-card__stage--light  pale backdrop, image inset, not cropped
+       project-card__stage--overdraft  brand-blue backdrop, image inset,
+                                   dots held clear of a tall frame
+       slider--on-dark             light dots, for dark frames
+
+     Image: 1344 × 750 or wider, same ratio. Other ratios crop from the
+     centre. Set width/height on the <img> so the page doesn't jump, and
+     loading="lazy" on every frame after the first.
+     ============================================================ -->
+
+<article class="project-card">
+  <div class="project-card__stage slider" data-slider aria-label="TITLE">
+    <div class="slider__viewport">
+      <div class="slide">
+        <img
+          class="project-card__ui"
+          src="assets/slides/CASE/01.png"
+          alt="What the frame shows — a description, not the case name"
+          width="1696"
+          height="939"
+        />
+      </div>
+      <div class="slide">
+        <img
+          class="project-card__ui"
+          src="assets/slides/CASE/02.png"
+          alt="What the frame shows"
+          width="1696"
+          height="939"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </div>
+
+  <header class="project-card__caption">
+    <ul class="project-card__tags">
+      <li class="tag tag--case">0→1 Product</li>
+      <li class="tag tag--case">B2B</li>
+    </ul>
+    <h3 class="project-card__title"><em>Case</em> title</h3>
+  </header>
+</article>
