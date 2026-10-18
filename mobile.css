@@ -70,6 +70,23 @@
     display: none;
   }
 
+  /* ——— 0. Motion ———
+     The same sequence, with smaller lifts: a phone screen is closer to
+     the eye, and the motion must never read as a scroll. */
+  .hero.is-entering .hero__slide:first-child .hero__title {
+    --rise: 12px;
+  }
+
+  .hero.is-entering .hero__slide:first-child .hero__subtitle,
+  .hero.is-entering .hero__slide:first-child .hero__portrait,
+  .hero.is-entering .hero__slide:first-child .hero__meta {
+    --rise: 8px;
+  }
+
+  .project-card {
+    --reveal-y: 16px;
+  }
+
   /* ——— 1. Hero ——— */
 
   /* The light is drawn 862 wide, which on a phone reaches past the right
@@ -371,10 +388,10 @@
 
   .project-card .slide .app-media--hand {
     position: absolute;
-    width: 200%;
+    width: 150%;
     max-width: none;
-    left: -60%;
-    top: -25%;
+    left: 18%;
+    top: 2%;
   }
 
   /* States stay stacked on the spot and cross-faded, in a box of their own
@@ -440,7 +457,10 @@
 
   .contact__links {
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
+  }
+
+  .contact__links a {
     font-size: 1rem;
     line-height: 1.5rem;
   }
@@ -453,5 +473,22 @@
   .footer__inner {
     flex-wrap: nowrap;
     gap: 1rem;
+  }
+
+  /* One line, whatever the width: the name never breaks, and the role
+     sheds its level on a phone (Figma 465:107681 says «Product
+     Designer»), then its year on the narrowest screens. */
+  .footer__inner > span {
+    white-space: nowrap;
+  }
+
+  .footer__level {
+    display: none;
+  }
+}
+
+@media (max-width: 359px) {
+  .footer__year {
+    display: none;
   }
 }

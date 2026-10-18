@@ -165,6 +165,12 @@
     let step_ = 0;
     let runningFor = -1; // which slide the ticker belongs to, −1 for none
     let held = false; // the cursor is on the picture, so it waits
+    /* Paging onto a frame starts its sequence over — a video from the
+       first second, a state stack from the first state — so the story is
+       never joined halfway. Only a page turn resets: a hold, or scrolling
+       away and back, carries on from where it was. */
+    let shownStack = null; // the stack on stage the last time we looked
+    let turned = false; // a page was just turned; the next start rewinds
 
     stacks.forEach((stack) => {
       if (!stack) return;
@@ -269,14 +275,22 @@
         !held &&
         !stillness.matches;
       const wanted = running ? stacks.indexOf(stack) : -1;
+      const fresh = stack !== shownStack;
+      shownStack = stack || null;
       /* render() runs on every pointermove; restarting the timer there
          would keep resetting the hold and nothing would ever settle. */
-      if (wanted === runningFor) return;
+      if (wanted === runningFor && !fresh) return;
       runningFor = wanted;
       clearInterval(ticker);
       if (!running) return;
       const frames = Array.from(stack.querySelectorAll("img"));
       if (frames.length < 2) return;
+      if (fresh) {
+        frames.forEach((frame, i) =>
+          frame.setAttribute("data-current", i === 0 ? "true" : "false")
+        );
+        step_ = 0;
+      }
       ticker = setInterval(() => {
         frames[step_].setAttribute("data-current", "false");
         step_ = (step_ + 1) % frames.length;
@@ -293,6 +307,10 @@
           ? seen.has(video) && !stillness.matches
           : onScreen && i === index && !stillness.matches;
         if (wanted && video.paused) {
+          if (turned && !inFeed()) {
+            video.currentTime = 0;
+            turned = false;
+          }
           /* Autoplay can still be refused; the frame then simply sits. */
           const started = video.play();
           if (started) started.catch(() => {});
@@ -401,6 +419,7 @@
       }
       if (target === index) return;
       index = target;
+      turned = true;
       render(true);
       hold();
     }

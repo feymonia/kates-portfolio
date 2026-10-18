@@ -236,6 +236,16 @@
   --size-hero-portrait: 280px;
   --page-gutter: clamp(20px, 2.22vw, 32px);
 
+  /* ---------- MOTION ----------
+     One curve and four durations for everything that moves on its own:
+     the entrance, the reveal on scroll, the lift on hover, the beat
+     between siblings. Only opacity and transform are ever animated. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-fast: 280ms; /* a hover, a lift */
+  --motion-standard: 650ms; /* a card rising into place */
+  --motion-hero: 800ms; /* the headline settling */
+  --motion-stagger: 110ms; /* one beat between siblings */
+
   /* ---------- SPACING ----------
      The project card's text block, from the Figma frame. One set of
      values for every card; nothing here is tuned per project. */

@@ -688,9 +688,13 @@ nav.links a:focus-visible::after {
 /* The photograph, bigger than the stage on three sides — the kit lets the
    frame crop the hand and the arm, and only the right edge is flush. */
 .app-media--hand {
-  left: -8.259cqw; /* −111 of 1344 */
-  top: -13.393cqw; /* −180 */
-  width: 108.259cqw; /* 1455 */
+  /* The new photograph (3850 × 3607) carries the phone in its top-left
+     corner: scaled so the phone keeps its 335 width, and shifted so it
+     sits where the old one did — the arm runs out through the bottom
+     right, the right edge flush as before. */
+  left: 30.95cqw; /* 416 of 1344 */
+  top: 2.83cqw; /* 38 */
+  width: 69.7cqw; /* 937 */
 }
 
 /* Section 5 exports its frames already cropped by the slide, with 10 of
@@ -1335,5 +1339,104 @@ nav.links a:focus-visible::after {
 @media (max-width: 480px) {
   .brand__name {
     display: none;
+  }
+}
+
+/* ——— Motion ———
+   Calm and brief: things settle into the places they already have.
+   Nothing here moves a size, a margin or a breakpoint — only opacity and
+   transform, and only once. Durations and the curve live in the tokens. */
+
+/* Entrance. The hero and the bar carry `is-entering` from the markup, so
+   the sequence runs without any script: the headline first, the line
+   under it a beat later, then the portrait and the meta line, then the
+   bar and the dots. Every element gets its own lift through --rise. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--rise, 20px));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero.is-entering .hero__slide:first-child .hero__title {
+  --rise: 20px;
+  animation: rise var(--motion-hero) var(--ease-out) both;
+}
+
+.hero.is-entering .hero__slide:first-child .hero__subtitle {
+  --rise: 12px;
+  animation: rise var(--motion-standard) var(--ease-out) 150ms both;
+}
+
+.hero.is-entering .hero__slide:first-child .hero__portrait,
+.hero.is-entering .hero__slide:first-child .hero__meta {
+  --rise: 8px;
+  animation: rise var(--motion-standard) var(--ease-out) 240ms both;
+}
+
+.hero.is-entering .slider__dots {
+  --rise: 6px;
+  animation: rise var(--motion-standard) var(--ease-out) 540ms both;
+}
+
+header.nav.is-entering .brand,
+header.nav.is-entering nav.links,
+header.nav.is-entering .availability {
+  --rise: 6px;
+  animation: rise var(--motion-standard) var(--ease-out) both;
+}
+
+header.nav.is-entering .brand {
+  animation-delay: 300ms;
+}
+
+header.nav.is-entering nav.links {
+  animation-delay: 390ms;
+}
+
+header.nav.is-entering .availability {
+  animation-delay: 480ms;
+}
+
+/* Reveal on scroll. Hidden only once the page knows a script will show
+   it: the inline check in <head> sets `reveal-pending` on <html> when
+   IntersectionObserver exists and motion is wanted, and motion.js lifts
+   each card as it comes into view — once, never back. A card that is
+   already revealed keeps its place; the hover lift lives on the stage so
+   the two never fight over one transform. */
+.reveal-pending .project-card {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 32px)) scale(0.99);
+  transition:
+    opacity var(--motion-standard) var(--ease-out),
+    transform var(--motion-standard) var(--ease-out);
+}
+
+.reveal-pending .project-card.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Asked for less motion: everything is simply there. */
+@media (prefers-reduced-motion: reduce) {
+  .hero.is-entering .hero__slide:first-child .hero__title,
+  .hero.is-entering .hero__slide:first-child .hero__subtitle,
+  .hero.is-entering .hero__slide:first-child .hero__portrait,
+  .hero.is-entering .hero__slide:first-child .hero__meta,
+  .hero.is-entering .slider__dots,
+  header.nav.is-entering .brand,
+  header.nav.is-entering nav.links,
+  header.nav.is-entering .availability {
+    animation: none;
+  }
+
+  .reveal-pending .project-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

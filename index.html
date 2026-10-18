@@ -13,12 +13,26 @@
       rel="stylesheet"
     />
     <!-- design system first: tokens, then components -->
-    <link rel="stylesheet" href="design-system.css" />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="mobile.css" />
+    <link rel="stylesheet" href="design-system.css?v=20261018" />
+    <link rel="stylesheet" href="styles.css?v=20261018c" />
+    <link rel="stylesheet" href="mobile.css?v=20261018c" />
+    <!-- Cards hide for the scroll reveal only when a script will show
+         them: the observer must exist and motion must be wanted. If
+         motion.js never arrives, the timer below shows everything. -->
+    <script>
+      if (
+        "IntersectionObserver" in window &&
+        !matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        document.documentElement.classList.add("reveal-pending");
+        window.__revealFallback = setTimeout(function () {
+          document.documentElement.classList.remove("reveal-pending");
+        }, 4000);
+      }
+    </script>
   </head>
   <body>
-    <header class="nav" id="nav">
+    <header class="nav is-entering" id="nav">
       <div class="wrap">
         <a href="#top" class="brand" aria-label="Home">
           <span class="brand__avatar" aria-hidden="true">
@@ -51,7 +65,7 @@
             </svg>
           </a>
           <a
-            href="https://drive.google.com/file/d/1ZAZLYRgyDNmjrYebHz-nbRaCCRB7scmW/view?usp=sharing"
+            href="https://drive.google.com/file/d/1n2hulpLPegE_FKUlJmMPAuQHcvfyVxjl/view?usp=sharing"
             class="link--external"
             target="_blank"
             rel="noopener noreferrer"
@@ -87,7 +101,7 @@
            project cards use — here with --slider-edge narrowed so only
            the outer fifths navigate and the middle stays readable. -->
       <section
-        class="hero slider"
+        class="hero slider is-entering"
         id="hero"
         data-slider
         aria-roledescription="carousel"
@@ -205,7 +219,7 @@
 
             <h2 class="hero__title">
               As a kid, I wanted to be the Pink Ranger.<br />
-              Product design is <em>close enough</em>
+              I still <em>fight chaos</em> — in product flows
             </h2>
 
             <p class="hero__subtitle">
@@ -242,8 +256,8 @@
                   class="app-media app-media--hand"
                   src="assets/slides/app/01-app.png"
                   alt="A hand holding a phone with the Direct app open on it: the balance, a cashback offer and the campaign summary"
-                  width="4000"
-                  height="3000"
+                  width="3850"
+                  height="3607"
                 />
               </div>
               <div class="slide">
@@ -659,12 +673,12 @@
                 href="https://www.linkedin.com/in/katherinebabenko/"
                 target="_blank"
                 rel="noopener noreferrer"
-                >LinkedIn ↗</a
+              >LinkedIn ↗</a
               >
             </li>
             <li>
-              <a href="https://drive.google.com/file/d/1ZAZLYRgyDNmjrYebHz-nbRaCCRB7scmW/view?usp=sharing" target="_blank" rel="noopener noreferrer"
-                >CV ↗</a
+              <a href="https://drive.google.com/file/d/1n2hulpLPegE_FKUlJmMPAuQHcvfyVxjl/view?usp=sharing" target="_blank" rel="noopener noreferrer"
+              >CV ↗</a
               >
             </li>
           </ul>
@@ -675,11 +689,18 @@
     <footer class="footer">
       <div class="footer__inner">
         <span>Katherine Babenko</span>
-        <span>Senior Product Designer · 2026</span>
+        <span
+          ><span class="footer__level">Senior </span>Product Designer<span
+            class="footer__year"
+          >
+            · 2026</span
+          ></span
+        >
       </div>
     </footer>
 
-    <script src="slider.js" defer></script>
+    <script src="slider.js?v=20261018b" defer></script>
     <script src="marquee.js" defer></script>
+    <script src="motion.js?v=20261018b" defer></script>
   </body>
 </html>
