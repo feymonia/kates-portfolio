@@ -422,6 +422,11 @@
       turned = true;
       render(true);
       hold();
+      /* Anyone listening (analytics.js) learns which frame is on stage;
+         the slider itself needs nothing from them. */
+      root.dispatchEvent(
+        new CustomEvent("slider:change", { bubbles: true, detail: { index } })
+      );
     }
 
     function hold() {
