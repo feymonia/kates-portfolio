@@ -193,6 +193,12 @@
   /* The start of the second block (Figma 465:107710 → 465:107810): the
      rule, 12 down to «Selected projects» at 32 / 40, 24 down to the
      first picture */
+  /* The long breath after the hero is a desktop thing: here the second
+     block starts as before */
+  .projects-intro {
+    padding-top: 0;
+  }
+
   .projects-intro::before {
     margin-bottom: 12px;
   }

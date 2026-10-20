@@ -31,8 +31,8 @@
     />
     <!-- design system first: tokens, then components -->
     <link rel="stylesheet" href="design-system.css?v=20261018" />
-    <link rel="stylesheet" href="styles.css?v=20261018c" />
-    <link rel="stylesheet" href="mobile.css?v=20261018c" />
+    <link rel="stylesheet" href="styles.css?v=hero5" />
+    <link rel="stylesheet" href="mobile.css?v=hero6" />
     <!-- Cards hide for the scroll reveal only when a script will show
          them: the observer must exist and motion must be wanted. If
          motion.js never arrives, the timer below shows everything. -->
@@ -128,6 +128,7 @@
              as its own layer. It ends where it ends; nothing fades into
              the section below it. -->
         <div class="hero__glow" aria-hidden="true"></div>
+        <canvas class="hero__pattern" aria-hidden="true"></canvas>
 
         <div class="slider__viewport hero__viewport">
           <article class="slide hero__slide" aria-label="Product designer">
@@ -720,5 +721,6 @@
     <script src="marquee.js" defer></script>
     <script src="motion.js?v=20261018b" defer></script>
     <script src="analytics.js" defer></script>
+    <script src="hero-pattern.js" defer></script>
   </body>
 </html>
