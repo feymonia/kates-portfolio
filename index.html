@@ -19,7 +19,11 @@
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-      gtag("config", "G-S8H2CMY41K");
+      /* Only the live site reports: a local copy on 127.0.0.1 or a
+         preview never reaches the account. */
+      if (location.hostname === "feymonia.com") {
+        gtag("config", "G-S8H2CMY41K");
+      }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
